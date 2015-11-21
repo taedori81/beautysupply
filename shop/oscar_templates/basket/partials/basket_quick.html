@@ -1,0 +1,52 @@
+{% load history_tags %}
+{% load basket_tags %}
+{% load currency_filters %}
+{% load thumbnail %}
+{% load i18n %}
+{% load staticfiles %}
+
+<div class="dropdown-menu cart-dropdown-menu" role="menu">
+    {% if request.basket.num_lines %}
+        <p class="cart-dropdown-desc"><i class="fa fa-cart-plus"></i>You have {{ request.basket.num_items }} product(s) in your cart:</p>
+        <hr>
+        {% for line in request.basket.all_lines %}
+            <div class="product clearfix">
+                <a href="#" class="remove-btn" title="Remove"><i class="fa fa-close"></i></a>
+                <figure>
+                    {% with image=line.product.primary_image %}
+                        {% thumbnail image.original "70x70" upscale=False as thumb %}
+                       <a href="{{ line.product.get_absolute_url }}" title="{{ line.product.get_title }}">
+                           <img class="img-responsive" src="{{ thumb.url }}" alt="{{ line.product.get_title }}">
+                       </a>
+                        {% endthumbnail %}
+                    {% endwith %}
+                </figure>
+                <div class="product-meta">
+                    <h4 class="product-name"><a href="{{ line.product.get_absolute_url }}">{{ line.product.get_title }}</a></h4>
+                    <div class="product-quantity">x {{ line.quantity }} piece(s)</div><!-- End .product-quantity -->
+                    <div class="product-price-container">
+                        <span class="product-price">{{ line.unit_price_excl_tax|currency:request.basket.currency }}</span>
+                        <span class="product-old-price">$120.50</span>
+                    </div><!-- End .product-price-container -->
+                </div><!-- End .product-meta -->
+            </div><!-- End .product -->
+        {% endfor %}
+    {% else %}
+        <p class="cart-dropdown-desc"><i class="fa fa-cart-plus"></i>You have no product in your cart:</p>
+    {% endif %}
+
+    <hr>
+    <div class="cart-action">
+        <div class="pull-right cart-action-total">
+            {% if request.basket.is_tax_known %}
+                <span>{% trans "Total:" %}</span> {{ request.basket.total_incl_tax|currency:request.basket.currency }}
+            {% else %}
+                <span>{% trans "Total:" %}</span> {{ request.basket.total_excl_tax|currency:request.basket.currency }}
+            {% endif %}
+        </div><!-- End .pull-left -->
+        <div class="pull-left">
+            <a href="{% url 'basket:summary' %}" class="btn btn-custom btn-sm">{% trans "Basket" %}</a>
+            <a href="{% url 'checkout:index' %}" class="btn btn-custom btn-sm">{% trans "Checkout" %}</a>
+        </div>
+    </div><!-- End .cart-action -->
+</div><!-- End .dropdown-menu -->

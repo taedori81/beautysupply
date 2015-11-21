@@ -1,0 +1,322 @@
+{% extends "layout_2_col.html" %}
+
+{% load history_tags %}
+{% load currency_filters %}
+{% load reviews_tags %}
+{% load staticfiles %}
+{% load product_tags %}
+{% load display_tags %}
+{% load i18n %}
+{% load purchase_info_tags %}
+{% load category_tags %}
+{% load thumbnail %}
+{% load static %}
+
+{% block title %}
+    {{ product.title }} | {{ block.super }}
+{% endblock %}
+
+{% block description %}
+    {{ product.description|default:""|striptags }}
+{% endblock %}
+
+{% block page_header %}
+<div class="page-header white larger larger-desc">
+    <div class="container">
+        <div class="row">
+            {% with category=product.categories.all.0 %}
+                <div class="col-md-6">
+                    <h1>{{ category.name }} <small class="hidden-xs"></small></h1>
+                    <p class="page-header-desc">{{ category.description|safe }}</p>
+                </div><!-- End .col-md-6 -->
+                <div class="col-md-6">
+                    <ol class="breadcrumb">
+                        <li><a href="{{ homepage_url }}">{% trans "Home" %}</a></li>
+                            {% for c in category.get_ancestors_and_self %}
+                                <li><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
+                            {% endfor %}
+{#                      <li class="active">{{ product.title }}</li>#}
+                    </ol>
+                </div><!-- End .col-md-6 -->
+            {% endwith %}
+        </div><!-- End .row -->
+    </div><!-- End .container -->
+</div><!-- End .page-header -->
+{% endblock %}
+
+
+
+
+<!-- Product Detail contents go here -->
+{% block content_inner %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+
+            <div class="product-gallery-container">
+                {% with primary_image=product.primary_image %}
+                    {% thumbnail primary_image.original "360x446" upscale=False as primary_thumb %}
+                        <div class="product-top">
+                            <img id="product-zoom" src="{{ primary_thumb.url }}" data-zoom-image="{{ primary_image.original.url }}" alt="Product image big"/>
+                        </div><!-- End .product-top -->
+                    {% endthumbnail %}
+                {% endwith %}
+                {% with all_images=product.images.all %}
+                    <div class="product-gallery-wrapper">
+                        <div class="owl-carousel product-gallery product-gallery-lg">
+                            {% for image in all_images %}
+                                {% thumbnail image.original "360x446" upscale=False as thumb  %}
+                                    <a href="#" data-image="{{ thumb.url }}" data-zoom-image="{{ image.original.url }}" class="product-gallery-item">
+                                        <img src="{{ thumb.url }}" alt="product-small-1">
+                                    </a>
+                                {% endthumbnail %}
+                            {% endfor %}
+
+                        </div><!-- End .product-gallery -->
+                    </div><!-- End #product-gallery-wrapper -->
+                {% endwith %}
+            </div><!-- End .product-gallery-container -->
+        </div><!-- End .col-md-5 -->
+
+
+        {% purchase_info_for_product request product as session %}
+
+        <div class="col-md-7">
+            <div class="product-details">
+                <h2 class="product-title">{{ product.get_title }}</h2>
+                <div class="product-cats">
+                    {% if user.is_authenticated and user.is_staff %}
+                        <a class="hidden-xs" href="{% url 'dashboard:catalogue-product' pk=product.id %}"><small><i class="fa fa-pencil-square-o"></i> {% trans "Edit this product" %}</small></a>
+                    {% endif %}
+                </div><!-- End .product-cats -->
+
+                <div class="product-price-container">
+                    {% block product_stock_record %}
+                        {% include "partials/stock_record_detail.html" with verbose=1 %}
+                    {% endblock %}
+                </div><!-- End .product-price-container -->
+
+                <div class="">
+                    {% iffeature "reviews" %}
+                        {% include "catalogue/reviews/partials/review_stars.html" %}
+                    {% endiffeature %}
+                </div><!-- End .product-ratings-container -->
+                <p>Add Short description of Product</p>
+
+                <div class="filter-size-container">
+                    <label class="input-desc">Size:</label>
+                    <div class="row">
+                        <a href="#" class="filter-size-box">xs</a>
+                        <a href="#" class="filter-size-box">s</a>
+                        <a href="#" class="filter-size-box">m</a>
+                        <a href="#" class="filter-size-box">ml</a>
+                        <a href="#" class="filter-size-box">l</a>
+                    </div><!-- End .row -->
+                </div><!-- End .filter-size-container -->
+
+                <div class="filter-color-container">
+                    <label class="input-desc">Color:</label>
+                    <div class="row">
+                        <a href="#" data-bgcolor="#eaeaea" class="filter-color-box"></a>
+                        <a href="#" data-bgcolor="#009688" class="filter-color-box"></a>
+                        <a href="#" data-bgcolor="#2196f3" class="filter-color-box"></a>
+                        <a href="#" data-bgcolor="#ffc107" class="filter-color-box"></a>
+                        <a href="#" data-bgcolor="#d4e157" class="filter-color-box"></a>
+                    </div><!-- End .row -->
+                </div><!-- End .filter-color-container -->
+
+                <div class="product-quantity-wrapper">
+                    <div class="product-quantity">
+                        <label class="input-desc">Quantity:</label>
+                        <input type="text" value="10" class="horizontal-spinner">
+                    </div><!-- End .product-quantity -->
+                </div><!-- End .product-quantity-wrapper -->
+
+                <div class="product-action">
+                    {% block product_basket_form %}
+                        {% include "partials/add_to_basket_form_side_by_side.html" %}
+                    {% endblock %}
+                </div><!-- End .product-action -->
+
+                <div class="share-container">
+                    <label class="input-desc">Share now:</label>
+                    <div class="social-icons social-icons-bg social-icons-bg-hover social-icons-circle">
+                        <a href="#" class="social-icon icon-facebook" title="Facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-icon icon-twitter" title="Twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon icon-google-plus" title="Google Plus">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                        <a href="#" class="social-icon icon-dribbble" title="Dribbble">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                        <a href="#" class="social-icon icon-skype" title="Skype">
+                            <i class="fa fa-skype"></i>
+                        </a>
+                    </div><!-- End .social-icons -->
+                </div><!-- End .share-container -->
+
+            </div><!-- End .product-details -->
+        </div><!-- End .col-md-7 -->
+    </div><!-- End .row -->
+
+
+    {% block product_description %}
+        {% if product.description %}
+        <div id="product_description" class="sub-header">
+            <h2 class="title-border custom mb40">{% trans "Product Description" %}</h2>
+        </div>
+        <p>{{ product.description|safe }}</p>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_info %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="title-border custom mb40">{% trans "Product Information" %}</h2>
+            <div class="table-responsive">
+
+            </div>
+            <table class="table table-bordered table-hover table-condensed">
+                {% if product.upc %}
+                <tr>
+                    <th>{% trans "UPC" %}</th><td>{{ product.upc }}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <th>{% trans "Product Type" %}</th><td>{{ product.get_product_class.name }}</td>
+                </tr>
+
+                {% purchase_info_for_product request product as session %}
+                {% if session.price.exists %}
+                    <tr>
+                        <th>{% trans "Price (excl. tax)" %}</th><td>{{ session.price.excl_tax|currency:session.price.currency }}</td>
+                    </tr>
+                    {% if session.price.is_tax_known %}
+                        <tr>
+                            <th>{% trans "Price (incl. tax)" %}</th><td>{{ session.price.incl_tax|currency:session.price.currency }}</td>
+                        </tr>
+                        <tr>
+                            <th>{% trans "Tax" %}</th><td>{{ session.price.tax|currency:session.price.currency }}</td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <th>{% trans "Availability" %}</th>
+                        <td>{{ session.availability.message }}</td>
+                    </tr>
+                {% endif %}
+                {% for av in product.attribute_values.all %}
+                    <tr>
+                        <th>{{ av.attribute.name }}</th>
+                        <td>{{ av.value_as_html }}</td>
+                    </tr>
+                {% endfor %}
+                {% iffeature "reviews" %}
+                    <tr>
+                        <th>{% trans "Number of reviews" %}</th>
+                        <td>{{ product.num_approved_reviews }}</td>
+                    </tr>
+                {% endiffeature %}
+            </table>
+        </div>
+
+
+    </div>
+    {% endblock %}
+
+    {% iffeature "reviews" %}
+        {% block product_review %}
+        <section>
+            <div id="reviews" class="sub-header">
+                {% if product.num_approved_reviews > 3 %}
+                    <a href="{% url 'catalogue:reviews-list' product_slug=product.slug product_pk=product.id %}" class="btn pull-right">{% trans "See all reviews" %}</a>
+                {% endif %}
+                <h2 class="title-border custom mb40">{% trans "Customer Reviews" %}</h2>
+            </div>
+
+            {% if product.num_approved_reviews == 0 %}
+                <p>
+                    {% if product|is_review_permitted:user %}
+                        {% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.id as add_review_url %}
+                            {% blocktrans %}This product does not have any reviews yet -
+                            <a href="{{ add_review_url }}#addreview">be the first to write one</a>.
+                        {% endblocktrans %}
+                    {% else %}
+                        {% trans "This product does not have any reviews yet" %}.
+                    {% endif %}
+                </p>
+            {% else %}
+                <ol class="list-unstyled review-list">
+                    {% for review in reviews|slice:":3" %}
+                        <li>
+                        {% include 'catalogue/partials/review.html' %}
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+        </section>
+        {% endblock product_review %}
+    {% endiffeature %}
+
+    <div class="mb50"></div><!-- space -->
+
+    {% with recommended_products=product.recommended_products.all|slice:":6" %}
+        {% if recommended_products %}
+            <h3 class="title-underblock custom mb80 text-center">{% trans "Recommended Products" %}</h3>
+            <div class="portfolio-rated-carousel owl-carousel nav-border center-nav white-nav popup-gallery">
+                {% for product in recommended_products %}
+                    <div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup">
+                        {% with image=product.primary_image %}
+                            {% thumbnail image.original "250x250" upscale=False as thumb %}
+                                <figure>
+                                    <a href="{{ product.get_absolute_url }}" class="zoom-item" title="Portfolio Item Description">
+                                        <img src="{{ thumb.url }}" alt="portfolio item name" class="img-responsive" style="">
+                                    </a>
+                                </figure>
+                            {% endthumbnail %}
+                        {% endwith %}
+                        <div class="portfolio-meta light">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h3 class="portfolio-title"><a href="{{ product.get_absolute_url }}">{{ product.get_title|truncatechars:25}}</a></h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p class="star-rating {{ product.rating|as_stars }}">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </p>
+                                </div>
+                                <div class="col-sm-5 pull-left">
+                                    {% include "catalogue/partials/stock_record.html" %}
+                                </div>
+                            </div>
+                        </div><!-- End .portfolio-meta -->
+                    </div><!-- End .portfolio-item -->
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="mb50"></div><!-- space -->
+
+    {% recently_viewed_products %}
+    <div class="mb80"></div><!-- space -->
+
+{% endblock %}
+
+
+{% block scripts %}
+    {{ block.super }}
+{% endblock %}
+{% block extrascripts %}
+    {{ block.super }}
+{% endblock %}

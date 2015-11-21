@@ -1,0 +1,107 @@
+{% load reviews_tags %}
+{% load thumbnail %}
+{% load i18n %}
+{% load display_tags %}
+{% load static %}
+{% load basket_tags %}
+{% load purchase_info_tags %}
+{% load currency_filters %}
+
+{% block product %}
+<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 masonry-grid-item">
+    <div class="product text-center">
+        {% block product_image %}
+            <div class="product-top">
+{#                <span class="product-box new-box new-box-border">New</span>#}
+                <figure>
+                    <a href="{{ product.get_absolute_url }}" title="{{ product.get_title }}">
+                        {% with image=product.primary_image %}
+                            {% thumbnail image.original "x250" upscale=False as thumb %}
+                                <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="product-image">
+                            {% endthumbnail %}
+                        {% endwith %}
+                        {% with image=product.secondary_image %}
+                            {% thumbnail image.original "x250" upscale=False as thumb %}
+                                <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="product-image-hover">
+                            {% endthumbnail %}
+                        {% endwith %}
+                    </a>
+                </figure>
+                <div class="product-action-container each-btn-animate">
+{#                    <a href="#" class="btn btn-dark add-to-favorite" title="Add to favorite"><i class="fa fa-heart"></i></a>#}
+
+{#                    <a href="#" class="btn btn-dark add-to-wishlist" title="Add to wishlist"><i class="fa fa-gift"></i></a>#}
+{##}
+{#                    <a href="{{ product.get_absolute_url }}" class="btn btn-dark quick-view" title="Product Detail"><i class="fa fa-search-plus"></i></a>#}
+                </div><!-- end .product-action-container -->
+            </div><!-- End .product-top -->
+        {% endblock %}
+
+        {% block product_title %}
+            <h3 class="product-title"><a href="{{ product.get_absolute_url }}" title="{{ product.get_title }}">{{ product.get_title }}</a></h3>
+        {% endblock %}
+
+        {% block product_review %}
+            {% iffeature "reviews" %}
+               <p class="star-rating {{ product.rating|as_stars }}">
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+
+                <small><a href="{% url 'catalogue:reviews-list' product_slug=product.slug product_pk=product.id %}">
+                            {% blocktrans count product.num_approved_reviews as num_reviews %}
+                                {{ num_reviews }} review
+                            {% plural %}
+                                {{ num_reviews }} reviews
+                            {% endblocktrans %}
+                    </a></small>
+               </p>
+            {% endiffeature %}
+        {% endblock %}
+
+        {% block product_price %}
+            {% purchase_info_for_product request product as session %}
+            <!-- Price -->
+            {% if session.price.exists %}
+                {% if session.price.excl_tax == 0 %}
+                    <p class="price_color">{% trans "Free" %}</p>
+                {% elif session.price.is_tax_known %}
+                    <p class="price_color">{{ session.price.incl_tax|currency:session.price.currency }}</p>
+                {% else %}
+                    <p class="price_color">{{ session.price.excl_tax|currency:session.price.currency }}</p>
+                {% endif %}
+            {% else %}
+                <p class="price_color">&nbsp;</p>
+            {% endif %}
+{#            <p class="{{ session.availability.code }} availability">#}
+{#                <i class="icon-{% if session.availability.is_available_to_buy %}ok{% else %}remove{% endif %}"></i>#}
+{#                {% if verbose %}#}
+{#                    {{ session.availability.message }}#}
+{#                {% else %}#}
+{#                    {{ session.availability.short_message }}#}
+{#                {% endif %}#}
+{#            </p>#}
+
+            <!-- Add to Cart -->
+            {% if session.availability.is_available_to_buy %}
+                {% basket_form request product 'single' as basket_form %}
+                <form action="{% url 'basket:add' pk=product.pk %}" method="post">
+                    {% csrf_token %}
+                    {{ basket_form.as_p }}
+                    <button type="submit" class="btn btn-custom add-to-cart" data-loading-text="{% trans 'Adding...' %}">{% trans "Add to basket" %}</button>
+                </form>
+            {% else %}
+                <span class="btn btn-custom add-to-cart disabled">{% trans "Add to basket" %}</span>
+            {% endif %}
+{#            <div class="product-price-container">#}
+{#                <span class="product-old-price">$125.99</span>#}
+{#                <span class="product-price">$49.99</span>#}
+{#            </div><!-- End .product-price-container -->#}
+{#    #}
+{#            <a href="#" class="btn btn-custom add-to-cart">Add to Cart</a>#}
+        {% endblock %}
+    </div><!-- End .product -->
+</div><!-- End .col-sm-4 -->
+{% endblock %}

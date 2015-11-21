@@ -1,0 +1,6 @@
+{% extends "customer/baseaccountpage.html" %}
+{% load i18n %}
+
+{% block column_right %}
+    {% include 'partials/form.html' with form_id="profile_form" action="." %}
+{% endblock %}

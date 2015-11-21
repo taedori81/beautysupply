@@ -1,0 +1,123 @@
+{% extends "checkout/checkout.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Shipping address" %} | {{ block.super }}
+{% endblock %}
+
+{% block checkout_nav %}
+    {% include 'checkout/nav.html' with step=1 %}
+    <div class="mb40"></div>
+{% endblock %}
+
+{% block checkout_title %}
+    <header class="title-block text-center">
+        <h1 class="title-border custom text-center">
+            <span>
+            {% trans "Shipping address" %}
+                <small></small>
+            </span>
+            </h1>
+        <h3 class="check-subtitle">{% trans "Where should we ship to?" %}</h3>
+    </header>
+
+    <div class="mb30"></div>
+    <div class="divider line double">
+        <span>
+            <i class="fa fa-map-marker"></i>
+        </span>
+    </div>
+
+{% endblock %}
+
+{% block order_contents %}{% endblock %}
+
+{% block shipping_address %}
+
+    {% if user.is_authenticated %}
+        {% if addresses %}
+            <header class="title-block text-center">
+                <h2 class="title text-center">
+                    <span class="light">{% trans "An address from your" %}</span>
+                        {% trans "Address Book?" %}
+                    <small></small>
+                </h2>
+            </header>
+
+            <div class="mb30"></div>
+
+            <div class="row masonry-grid-fitrows">
+                 {% for address in addresses %}
+                     {% block select_address_form %}
+                         <div class="col-sm-12 col-md-6 col-lg-4 masonry-grid-item">
+                             <div class="pricing-table">
+                                 {% block select_address_fields %}
+                                     <ul class="pricing-list">
+                                         {% for field in address.active_address_fields %}
+                                             <li>{{ field }}</li>
+                                         {% endfor %}
+                                     </ul>
+                                 {% endblock %}
+                                 <div class="pricing-action">
+                                     <form action="{% url 'checkout:shipping-address' %}" method="post" id="select_shipping_address_{{ address.id }}">
+                                         {% csrf_token %}
+                                         <input type="hidden" name="action" value="ship_to" />
+                                         <input type="hidden" name="address_id" value="{{ address.id }}" />
+                                         {% if address.is_default_for_shipping %}
+                                             <button type="submit" class="btn btn-success btn-sm" data-loading-text="{% trans 'Saving...' %}"><i class="icon-ok"></i> {% trans "Ship to default address" %}</button>
+                                         {% else %}
+                                             <button type="submit" class="btn btn-primary btn-sm" data-loading-text="{% trans 'Saving...' %}">{% trans "Ship to this address" %}</button>
+                                         {% endif %}
+
+                                         <div class="btn-group address-controls">
+                                             <a href="{% url 'checkout:user-address-update' pk=address.id %}" class="btn btn-default btn-sm">{% trans "Edit address" %}</a>
+                                             <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                 <span class="caret"></span>
+                                             </button>
+                                             <ul class="dropdown-menu">
+                                                 <li><a href="{% url 'checkout:user-address-delete' pk=address.id %}" class="btn-remove-address">{% trans "Delete" %}</a></li>
+                                             </ul>
+                                         </div>
+                                     </form>
+                                 </div>
+                             </div>
+                         </div>
+                     {% endblock %}
+                 {% endfor %}
+            </div>
+
+            <div class="divider line">
+                <span>
+                    <i class="fa fa-plus-circle"></i>
+                </span>
+            </div>
+            <header class="title-block text-center">
+                <h2 class="title text-center">
+                    <span class="light">{% trans "Or a" %}</span>
+                        {% trans "New Address?" %}
+                    <small></small>
+                </h2>
+            </header>
+            <div class="mb40"></div>
+        {% endif %}
+    {% endif %}
+
+    {% block new_address_form %}
+        <div class="well">
+            <form action="{% url 'checkout:shipping-address' %}" method="post" id="new_shipping_address" class="form form-horizontal">
+                {% csrf_token %}
+                {% include "partials/form_fields2.html" with form=form style='horizontal' %}
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <button type="submit" class="btn btn-lg btn-custom" data-loading-text="{% trans 'Continuing...' %}">{% trans "Continue" %}</button>
+                        {% trans "or" %} <a href="{% url 'basket:summary' %}">{% trans "return to basket" %}</a>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    {% endblock %}
+{% endblock shipping_address %}
+
+{% block shipping_method %}{% endblock %}
+{% block payment_method %}{% endblock %}

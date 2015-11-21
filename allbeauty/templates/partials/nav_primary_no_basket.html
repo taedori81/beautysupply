@@ -1,0 +1,243 @@
+{% load currency_filters %}
+{% load category_tags %}
+{% load custom_tags %}
+{% load i18n %}
+{% load static %}
+
+<header id="header" role="banner">
+    <div class="collapse navbar-white" id="header-search-form">
+        <div class="container">
+        <form class="navbar-form animated fadeInDown"  role="search">
+            <input type="search" id="s" name="s" class="form-control" placeholder="Search in here...">
+            <button type="submit" class="btn-circle" title="Search"><i class="fa fa-search"></i></button>
+        </form>
+        </div>
+    </div><!-- End #header-search-form -->
+    <nav class="navbar navbar-white animated-dropdown btt-dropdown" role="navigation">
+
+        <div class="navbar-top no-bg clearfix">
+            <div class="container">
+                <div class="pull-left">
+                    <ul class="navbar-top-nav clearfix hidden-sm hidden-xs">
+                        {% if user.is_authenticated %}
+                            {% if num_unread_notifications > 0 %}
+                            {# If user has new notifications - we change account link to go to inbox #}
+                                <li>
+                                    <a href="{% url 'customer:notifications-inbox' %}">
+                                        <i class="fa fa-user"></i>
+                                        {% trans "Account" %}
+                                        <span class="label label-important">{{ num_unread_notifications }}</span>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a href="{% url 'customer:summary' %}">
+                                        <i class="fa fa-user"></i>
+                                        {% trans "Account" %}
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if user.is_staff or perms.partner.dashboard_access %}
+                                <li>
+                                    <a href="{% url 'dashboard:index' %}">
+                                        <i class="fa fa-tachometer"></i>{% trans "Dashboard" %}
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <a href="{% url 'customer:logout' %}">
+                                    <i class="fa fa-sign-out">
+                                        {% trans "Log out" %}
+                                    </i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{% url 'customer:login' %}">
+                                    <i class="fa fa-sign-in">
+                                        {% trans "Login" %}
+                                    </i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'customer:login' %}">
+                                    <i class="fa fa-user">
+                                        {% trans "Sign up" %}
+                                    </i>
+                                </a>
+                            </li>
+                        {% endif %}
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-heart">
+                                        {% trans "My Wishlist" %}
+                                    </i>
+                                </a>
+                            </li>
+                    </ul>
+                    <div class="dropdown account-dropdown visible-sm visible-xs">
+                        <a class="dropdown-toggle" href="#" id="account-dropdown" data-toggle="dropdown" aria-expanded="true">
+                        My Account
+                        <span class="angle"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="account-dropdown">
+                            {% if user.is_authenticated %}
+                                {% if num_unread_notifications > 0 %}
+                                {# If user has new notifications - we change account link to go to inbox #}
+                                    <li role="presentation" tabindex="-1">
+                                        <a href="{% url 'customer:notifications-inbox' %}">
+                                            <i class="fa fa-user"></i>
+                                            {% trans "Account" %}
+                                            <span class="label label-important">{{ num_unread_notifications }}</span>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li role="presentation" tabindex="-1">
+                                        <a href="{% url 'customer:summary' %}">
+                                            <i class="fa fa-user"></i>
+                                            {% trans "Account" %}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% if user.is_staff or perms.partner.dashboard_access %}
+                                <li role="presentation" tabindex="-1">
+                                    <a href="{% url 'dashboard:index' %}">
+                                        <i class="fa fa-tachometer"></i>{% trans "Dashboard" %}
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li role="presentation" tabindex="-1">
+                                <a href="{% url 'customer:logout' %}">
+                                    <i class="fa fa-sign-out">
+                                        {% trans "Log out" %}
+                                    </i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li role="presentation" tabindex="-1">
+                                <a href="{% url 'customer:login' %}">
+                                    <i class="fa fa-sign-in">
+                                        {% trans "Login" %}
+                                    </i>
+                                </a>
+                            </li>
+                            <li role="presentation" tabindex="-1">
+                                <a href="{% url 'customer:login' %}">
+                                    <i class="fa fa-user">
+                                        {% trans "Sign up" %}
+                                    </i>
+                                </a>
+                            </li>
+                        {% endif %}
+                            <li role="presentation" tabindex="-1">
+                                <a href="#">
+                                    <i class="fa fa-heart">
+                                        {% trans "My Wishlist" %}
+                                    </i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div><!-- End .account-dropdown -->
+                </div><!-- End .pull-left -->
+
+                <div class="pull-right">
+                    <div class="social-icons pull-right hidden-xs">
+                        <a href="#" class="social-icon icon-facebook" title="Facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-icon icon-twitter" title="Twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon icon-google-plus" title="Google Plus">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                        <a href="#" class="social-icon icon-dribbble" title="Dribbble">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                        <a href="#" class="social-icon icon-reddit" title="Reddit">
+                            <i class="fa fa-reddit"></i>
+                        </a>
+                        <a href="#" class="social-icon icon-skype" title="Skype">
+                            <i class="fa fa-skype"></i>
+                        </a>
+                    </div><!-- End .social-icons -->
+
+                    <div class="dropdowns-container pull-right clearfix">
+                        <div class="dropdown currency-dropdown pull-right">
+                            <a class="dropdown-toggle" href="#" id="currency-dropdown" data-toggle="dropdown" aria-expanded="true">
+                            Currency
+                            <span class="angle"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="currency-dropdown">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Us Dollar</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Euro</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Turkish TL</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Pound</a></li>
+                            </ul>
+                        </div><!-- End .currency-dropdown -->
+
+                        <div class="dropdown language-dropdown pull-right">
+                            <a class="dropdown-toggle" href="#" id="language-dropdown" data-toggle="dropdown" aria-expanded="true">
+                            Languages
+                            <span class="angle"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="language-dropdown">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">English</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Spanish</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Turkish</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">German</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Italian</a></li>
+                            </ul>
+                        </div><!-- End .curreny-dropdown -->
+                    </div><!-- End. dropdowns-container -->
+                </div><!-- End .pull-right -->
+            </div><!-- End .container-fluid -->
+        </div><!-- End .navbar-top -->
+        <div class="navbar-inner sticky-menu">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle btn-circle pull-right collapsed" data-toggle="collapse" data-target="#main-navbar-container">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand text-uppercase clear-padding-left" href="{{ homepage_url }}" title="">Beauty</a>
+                </div><!-- End .navbar-header -->
+
+                <div class="collapse navbar-collapse" id="main-navbar-container">
+                    <div class="container">
+                        {% category_tree as tree_categories %}
+                        {% if tree_categories %}
+                        <ul class="nav navbar-nav">
+                            {% for tree_category,info in tree_categories %}
+                            {% if info.has_children %}
+                                <li class="dropdown {% if info.level > 0 %}sub-dropdown {% endif %}">
+                                    <a class="dropdown-toggle"  data-toggle="dropdown" role="button" aria-expanded="false" href="{{ tree_category.get_absolute_url }}">
+                                        {{ tree_category.name }}
+                                        <span class="angle"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                            {% else %}
+                               <li>
+                                   <a href="{{ tree_category.get_absolute_url }}">
+                                       {{ tree_category.name }}
+                                   </a>
+                               </li>
+                            {% endif %}
+                            {% for close in info.num_to_close %}
+                                </ul></li>
+                            {% endfor %}
+                        {% endfor %}
+
+                        </ul>
+                        {% endif %}
+                        <button type="button" class="navbar-btn btn-icon btn-circle pull-right last" data-toggle="collapse" data-target="#header-search-form"><i class="fa fa-search"></i></button>
+
+                    {% block mini_basket %}
+
+                    {% endblock %}
+                    </div><!-- End .container -->
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </div>
+    </nav>
+</header><!-- End #header -->

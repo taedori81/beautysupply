@@ -1,0 +1,188 @@
+{% extends "layout_2_col.html" %}
+
+{% load basket_tags %}
+{% load promotion_tags %}
+{% load category_tags %}
+{% load product_tags %}
+{% load i18n %}
+
+{% block title %}
+    {% if summary %}{{ summary }} |{% endif %} {{ block.super }}
+{% endblock %}
+
+{% block headertext %}{{ summary }}{% endblock %}
+
+
+{% block page_header %}
+    {{ block.super }}
+{% endblock %}
+
+{% block column_left %}
+
+    {# TODO Add Filter #}
+    <div class="widget">
+
+    </div>
+
+    <div class="widget">
+        <div class="filter-group-widget">
+            <div class="panel-group" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-border-tb">
+                    <div class="panel-heading" role="tab" id="priceFilter-header">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#priceFilter" aria-expanded="true" aria-controls="priceFilter">
+                                Price Filter
+                                <span class="panel-icon"></span>
+                            </a>
+                        </h4>
+                    </div><!-- End .panel-heading -->
+                    <div id="priceFilter" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="priceFilter-header">
+                        <div class="panel-body">
+                            <div class="filter-price">
+                                <div id="price-range"></div><!-- End #price-range -->
+                                <div id="filter-range-details" class="row">
+                                    <div class="col-xs-6">
+                                        <div class="filter-price-label">from - $</div>
+                                        <input type="text" id="price-range-low" class="form-control">
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="filter-price-label">to- $</div>
+                                        <input type="text" id="price-range-high" class="form-control">
+                                    </div>
+                                </div><!-- End #filter-range-details -->
+                                <div class="filter-price-action">
+                                    <a href="#" class="btn btn-custom btn-sm">Filter</a>
+                                    <a href="#" class="btn btn-custom3 btn-sm">Reset</a>
+                                </div><!-- End #filter-price-action -->
+                            </div><!-- End .filter-price -->
+                        </div><!-- End .panel-body -->
+                    </div><!-- End .panel-collapse -->
+                </div><!-- End .panel -->
+                <div class="panel panel-border-tb">
+                    <div class="panel-heading" role="tab" id="colorFilter-header">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#colorFilter" aria-expanded="true" aria-controls="colorFilter">
+                            Color Filter
+                            <span class="panel-icon"></span>
+                            </a>
+                        </h4>
+                    </div><!-- End .panel-heading -->
+                    <div id="colorFilter" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="colorFilter-header">
+                        <div class="panel-body">
+                            <div class="filter-color-container">
+                                <div class="row">
+                                    <a href="#" data-bgcolor="#eaeaea" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#009688" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#2196f3" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#ffc107" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#d4e157" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#c5c8f4" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#9e9e9e" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#607d8b" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#795548" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#8fdfa6" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#d8ea9f" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#79a762" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#fed5d4" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#fe8482" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#00acc1" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#b39ddb" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#0277bd" class="filter-color-box"></a>
+                                    <a href="#" data-bgcolor="#000000" class="filter-color-box"></a>
+                                </div><!-- End .row -->
+                            </div><!-- End .filter-color-container -->
+                        </div><!-- End .panel-body -->
+                    </div><!-- End .panel-collapse -->
+                </div><!-- End .panel -->
+                <div class="panel panel-border-tb">
+                    <div class="panel-heading" role="tab" id="sizeFilter-header">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#sizeFilter" aria-expanded="true" aria-controls="sizeFilter">
+                                Size Filter
+                                <span class="panel-icon"></span>
+                            </a>
+                        </h4>
+                    </div><!-- End .panel-heading -->
+                    <div id="sizeFilter" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sizeFilter-header">
+                        <div class="panel-body">
+                            <div class="filter-color-container">
+                                <div class="row">
+                                    <a href="#" class="filter-size-box active">6</a>
+                                    <a href="#" class="filter-size-box">4</a>
+                                    <a href="#" class="filter-size-box">6</a>
+                                    <a href="#" class="filter-size-box">8</a>
+                                    <a href="#" class="filter-size-box">10</a>
+                                    <a href="#" class="filter-size-box">12</a>
+                                    <a href="#" class="filter-size-box">xs</a>
+                                    <a href="#" class="filter-size-box">s</a>
+                                    <a href="#" class="filter-size-box">m</a>
+                                    <a href="#" class="filter-size-box">ml</a>
+                                    <a href="#" class="filter-size-box">l</a>
+                                    <a href="#" class="filter-size-box">xl</a>
+                                </div><!-- End .row -->
+                            </div><!-- End .filter-color-container -->
+                        </div><!-- End .panel-body -->
+                    </div><!-- End .panel-collapse -->
+                </div><!-- End .panel -->
+                <div class="panel panel-border-tb">
+                    <div class="panel-heading" role="tab" id="brandFilter-header">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#brandFilter" aria-expanded="true" aria-controls="brandFilter">
+                                Brand Filter
+                                <span class="panel-icon"></span>
+                            </a>
+                        </h4>
+                    </div><!-- End .panel-heading -->
+                    <div id="brandFilter" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="brandFilter-header">
+                        <div class="panel-body">
+                            <ul class="filter-brand-list">
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Yikes &amp; Sports <span>(11)</span></a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Smittzy &amp; Jane <span>(7)</span></a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Helena's Secrets <span>(10)</span></a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Vestel's Shoes <span>(26)</span></a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Puma &amp; Cougar <span>(14)</span></a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Jane Shirts <span>(9)</span></a></li>
+                            </ul>
+                        </div><!-- End .panel-body -->
+                    </div><!-- End .panel-collapse -->
+                </div><!-- End .panel -->
+            </div><!-- End .panel-group -->
+        </div><!-- End .filter-widget -->
+    </div><!-- End .widget -->
+
+    <div class="widget">
+        <h3>Short Video</h3>
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/sOKC_e1Ygvc" allowfullscreen></iframe>
+        </div><!-- End .embed-responsive -->
+    </div><!-- End .widget -->
+{% endblock %}
+
+{% block column_right %}
+    <form method="get" class="form-horizontal">
+        {# Render other search params in a hidden block #}
+        <div style="display:none">
+            {% for value in selected_facets %}
+                <input name="selected_facets" value="{{ value }}" />
+            {% endfor %}
+            {{ form.q }}
+        </div>
+    </form>
+
+    {% if products %}
+        <div class="row masonry-grid-fitrows">
+                {% for product in products %}
+                    {% render_product product %}
+                {% endfor %}
+        </div><!-- End .row -->
+        {% include "partials/pagination.html" %}
+
+    {% else %}
+        <p class="nonefound">{% trans "No products found." %}</p>
+    {% endif %}
+{% endblock %}
+
+{% block onbodyload %}
+    {{ block.super }}
+    oscar.search.init();
+{% endblock %}

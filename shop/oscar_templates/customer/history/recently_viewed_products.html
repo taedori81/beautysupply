@@ -1,0 +1,47 @@
+{% load i18n %}
+{% load product_tags %}
+{% load reviews_tags %}
+{% load thumbnail %}
+
+{% with products_sliced=products|slice:":6" %}
+    {% if products_sliced %}
+        <h3 class="title-underblock custom mb80 text-center">{% trans "Products you recently viewed" %}</h3>
+
+        <div class="portfolio-rated-carousel owl-carousel nav-border center-nav white-nav popup-gallery">
+            {% for product in products_sliced %}
+            <div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup">
+                {% with image=product.primary_image %}
+                    {% thumbnail image.original "250x250" upscale=False as thumb %}
+                        <figure>
+                            <a href="{{ product.get_absolute_url }}" class="zoom-item" title="Portfolio Item Description">
+                                <img src="{{ thumb.url }}" alt="portfolio item name" class="img-responsive" style="">
+                            </a>
+                        </figure>
+                    {% endthumbnail %}
+                {% endwith %}
+                <div class="portfolio-meta light">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 class="portfolio-title"><a href="{{ product.get_absolute_url }}">{{ product.get_title|truncatechars:25}}</a></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <p class="star-rating {{ product.rating|as_stars }}">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </p>
+                        </div>
+                        <div class="col-sm-5 pull-left">
+                            {% include "catalogue/partials/stock_record.html" %}
+                        </div>
+                    </div>
+                </div><!-- End .portfolio-meta -->
+            </div><!-- End .portfolio-item -->
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}

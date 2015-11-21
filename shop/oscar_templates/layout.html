@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load static %}
+{% load compress %}
+{% load promotion_tags %}
+
+{% block mainstyles %}
+    {% block styles %}
+        {% compress css %}
+{#             Conflict with template default css#}
+{#            {% if use_less %}#}
+{#                <link rel="stylesheet" type="text/less" href="{% static "oscar/less/styles.less" %}" />#}
+{#            {% else %}#}
+{#                <link rel="stylesheet" type="text/css" href="{% static "oscar/css/styles.css" %}" />#}
+{#            {% endif %}#}
+            <link rel="stylesheet" href="{% static "oscar/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css" %}" />
+            <link rel="stylesheet" type="text/css" href="{% static "oscar/css/datetimepicker.css" %}" />
+
+            <link rel="stylesheet" href="{% static "css/animate.css" %}">
+            <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+            <link rel="stylesheet" href="{% static "css/jquery.selectbox.css" %}">
+            <link rel="stylesheet" href="{% static "css/style2.css" %}">
+            <link rel="stylesheet" href="{% static "css/revslider/revslider-index5.css" %}">
+{#            <link rel="stylesheet" href="{% static "css/skins/lightfonts.css" %}">#}
+            <link rel="stylesheet" id="color-scheme" href="{% static "css/colors/purple.css" %}">
+            <link rel="stylesheet" href="{% static "oscar/css/custom.css" %}">
+            <link rel="stylesheet" href="{% static "oscar/css/custom-only-css.css" %}">
+
+            <!-- Favicon and Apple Icons -->
+            <link rel="icon" type="image/png" href="{% static "images/icons/favicon.png" %}">
+            <link rel="apple-touch-icon" sizes="57x57" href="{% static "images/icons/faviconx57.png" %}">
+            <link rel="apple-touch-icon" sizes="72x72" href="{% static "images/icons/faviconx72.png" %}">
+
+            <!-- Modernizr -->
+            <script src="{% static "js/modernizr.js" %}"></script>
+
+            <!--- jQuery -->
+            <script src="{% static "js/jquery.min.js" %}"></script>
+
+            <!-- Queryloader -->
+            <script src="{% static "js/queryloader2.min.js" %}"></script>
+        {% endcompress %}
+    {% endblock %}
+{% endblock %}
+
+{% block layout %}
+    {% block navigation %}
+        {% include "partials/nav_primary.html" %}
+    {% endblock %}
+    {# Main content of page - other layout templates may override this block #}
+    {% block content_wrapper %}
+        <div class="container-fluid page">
+            <div class="page_inner">
+                {% block breadcrumbs %}{% endblock %}
+                {% block header %}
+                    <div class="page-header action">
+                        <h1>{% block headertext %}{% endblock %}</h1>
+                    </div>
+                {% endblock %}
+                {% include "partials/alert_messages.html" %}
+                {% block subnavigation %}{% endblock %}
+                <div class="content">
+                    {% block subheader %}{% endblock subheader %}
+
+                    {# Render promotions #}
+                    <div id="promotions">
+                        {% for promotion in promotions_page %}
+                            {% render_promotion promotion %}
+                        {% endfor %}
+                    </div>
+
+                    {# Div exists for AJAX updates to entire content section #}
+                    <div id="content_inner">{% block content %}{% endblock %}</div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% include "partials/footer.html" %}
+    <a href="#top" id="scroll-top" title="Back to Top"><i class="fa fa-angle-up"></i></a>
+{% endblock %}
+
+{# Local scripts #}
+{% block scripts %}
+    {{ block.super }}
+    {% compress js %}
+    <!-- Twitter Bootstrap -->
+    <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+    <!-- Oscar -->
+    <script src="{% static "oscar/js/oscar/ui.js" %}" type="text/javascript" charset="utf-8"></script>
+
+    <script src="{% static "oscar/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js" %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static "oscar/js/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.all.js" %}" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Smoothscroll -->
+    <script src="{% static "js/smoothscroll.js" %}"></script>
+
+    <script src="{% static "js/jquery.hoverIntent.min.js" %}"></script>
+    <script src="{% static "js/jquery.nicescroll.min.js" %}"></script>
+    <script src="{% static "js/waypoints.min.js" %}"></script>
+    <script src="{% static "js/waypoints-sticky.min.js" %}"></script>
+    <script src="{% static "js/jquery.debouncedresize.js" %}"></script>
+    <script src="{% static "js/retina.min.js" %}"></script>
+    <script src="{% static "js/owl.carousel.min.js" %}"></script>
+    <script src="{% static "js/jflickrfeed.min.js" %}"></script>
+    <script src="{% static "js/twitter/jquery.tweet.min.js" %}"></script>
+    <script src="{% static "js/skrollr.min.js" %}"></script>
+    <script src="{% static "js/jquery.countTo.js" %}"></script>
+    <script src="{% static "js/isotope.pkgd.min.js" %}"></script>
+    <script src="{% static "js/jquery.themepunch.tools.min.js" %}"></script>
+    <script src="{% static "js/jquery.themepunch.revolution.min.js" %}"></script>
+    <script src="{% static "js/jquery.selectbox.min.js" %}"></script>
+    <script src="{% static "js/wow.min.js" %}"></script>
+    <script src="{% static "js/jquery.validate.min.js" %}"></script>
+    <script src="{% static "js/contact.js" %}"></script>
+    <script src="{% static "js/jquery.nouislider.min.js" %}"></script>
+    <script src="{% static "js/jquery.elevateZoom.min.js" %}"></script>
+    <script src="{% static "js/jquery.bootstrap-touchspin.min.js" %}"></script>
+    <script src="{% static "js/main2.js" %}"></script>
+
+    <script>
+        (function () {
+            "use strict";
+            // Slider Revolution
+            jQuery('#revslider').revolution({
+                delay:8000,
+                startwidth:1170,
+                startheight:520,
+                fullWidth:"on",
+                hideTimerBar: "on",
+                spinner:"spinner2",
+                navigationStyle: "preview4",
+                soloArrowLeftHOffset:0,
+                soloArrowRightHOffset:0
+            });
+
+        }());
+    </script>
+    {% endcompress %}
+{% endblock %}
+
+{% block extrascripts %}
+    {% include "partials/extrascripts.html" %}
+    {{ block.super }}
+{% endblock %}
+
+{% block onbodyload %}
+    {{ block.super }}
+    oscar.init();
+{% endblock %}

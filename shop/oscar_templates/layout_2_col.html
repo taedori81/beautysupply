@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% load promotion_tags %}
+{% load i18n %}
+{% load category_tags %}
+{% load custom_tags %}
+{% load product_tags %}
+
+{% comment %}
+Keep the same header and footer as the standard layout template but override the 
+main content area to split it into a sidebar and a content block
+{% endcomment %}
+{% block content_wrapper %}
+   <div id="content" role="main">
+       {% block page_header %}
+           <div class="page-header light larger larger-desc">
+               <div class="container">
+                   <div class="row">
+                       <div class="col-md-6">
+                           {% block page_header_title %}
+
+                           {% endblock %}
+                       </div><!-- End .col-md-6 -->
+                       <div class="col-md-6">
+                            {% block page_header_breadcrumb %}
+
+                            {% endblock %}
+                       </div><!-- End .col-md-6 -->
+                   </div><!-- End .row -->
+               </div><!-- End .container -->
+           </div><!-- End .page-header -->
+      {% endblock %}
+
+       <div class="container">
+           <div class="row">
+               <div class="col-sm-12">
+                   {% block message %}
+                       {% include "partials/alert_messages.html" %}
+                   {% endblock %}
+               </div>
+               <div id="content_inner">
+                   {% block content_inner %}
+                        <div class="col-md-9 col-md-push-3">
+                           {% block column_right %}
+                           {% endblock %}
+                       </div>
+                       <aside class="col-md-3 col-md-pull-9 sidebar">
+                           {% block column_left %}
+                           {% endblock %}
+                       </aside>
+                   {% endblock %}
+               </div>
+           </div>
+       </div>
+   </div>
+{% endblock %}

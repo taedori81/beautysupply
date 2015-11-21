@@ -1,0 +1,85 @@
+{% extends "catalogue/browse.html" %}
+
+{% load i18n %}
+{% load category_tags %}
+{% load product_tags %}
+{% load static %}
+
+{% block title %}
+    {{ category.name }} | {{ block.super }}
+{% endblock %}
+
+{% block description %}
+    {{ category.description|default:""|striptags }}
+{% endblock %}
+
+{% block headertext %}
+
+{% endblock %}
+
+{% block breadcrumbs %}
+
+{% endblock breadcrumbs %}
+
+
+{% block page_header_title %}
+    <h1>{{ category.name }} <small class="hidden-xs"></small></h1>
+    <p class="page-header-desc">{{ category.description|safe }}</p>
+{% endblock %}
+{% block page_header_breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{{ homepage_url }}">{% trans "Home" %}</a></li>
+            {% for category in category.get_ancestors %}
+                <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+            {% endfor %}
+        <li class="active">{{ category.name }}</li>
+    </ol>
+{% endblock %}
+
+{% block column_left %}
+    {{ block.super }}
+{% endblock %}
+
+{% block column_right %}
+        <div class="filter-row clearfix">
+            <div class="filter-row-left">
+                <span class="filter-row-label">Sort By:</span>
+                <div class="small-selectbox clearfix">
+                    <select id="sort" name="sort" class="selectbox">
+                        <option value="Rating">Rating</option>
+                        <option value="Color">Color</option>
+                        <option value="Size">Size</option>
+                        <option value="Price">Price</option>
+                    </select>
+                </div><!-- End .normal-selectbox-->
+            </div><!-- End .filter-row-left -->
+            <div class="filter-row-left">
+                <span class="filter-row-label">Show:</span>
+                <div class="small-selectbox clearfix">
+                    <select id="count" name="count" class="selectbox">
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                        <option value="60">60</option>
+                    </select>
+                </div><!-- End .normal-selectbox-->
+            </div><!-- End .filter-row-left -->
+            <div class="filter-row-right">
+                <a href="category.html" class="btn btn-layout btn-border add-tooltip active" data-placement="top" title="Category Grid"><i class="fa fa-th"></i></a>
+                <a href="category-list.html" class="btn btn-layout btn-border add-tooltip" data-placement="top" title="Category List"><i class="fa fa-th-list"></i></a>
+
+                <a href="compare.html" class="btn btn-compare btn-dark">Compare</a>
+
+            </div><!-- End .filter-row-right -->
+        </div><!-- End .filter-row -->
+
+        <div class="row masonry-grid-fitrows">
+            {% for product in products %}
+                {% render_product product %}
+            {% endfor %}
+        </div><!-- End .row -->
+
+        <div class="mb30"></div><!-- space -->
+
+        {% include "partials/pagination.html" %}
+{% endblock %}

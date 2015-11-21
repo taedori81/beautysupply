@@ -1,0 +1,82 @@
+{% extends 'oscar/checkout/payment_details.html' %}
+{% load currency_filters %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block extrascript %}
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript">
+        Stripe.setPublishableKey({{ self.stripe_publishable_key }});
+    </script>
+    <script src="{% static 'js/pay.js' %}"></script>
+{% endblock extrascript %}
+
+{% block checkout_title %}
+    <header class="title-block text-center">
+        <h1 class="title-border custom text-center">
+            <span>
+            {% trans "Payment Details" %}
+                <small></small>
+            </span>
+            </h1>
+        <h3 class="check-subtitle">{% trans "How do you want to pay?" %}</h3>
+    </header>
+
+    <div class="mb30"></div>
+    <div class="divider line double">
+        <span>
+            <i class="fa fa-credit-card"></i>
+        </span>
+    </div>
+
+{% endblock %}
+
+{% block payment_details_content %}
+
+{#    Using crispy_form    #}
+{#    {% crispy bankcard_form %}#}
+
+    <form id="payment-form" method="post" action="{% url 'checkout:preview' %}" class="form-stacked">
+            {% csrf_token %}
+            <header class="title-block">
+                <h2 class="title">
+                    <span class="light">{% trans "Enter your" %}</span>
+                        {% trans "Card Information" %}
+                    <small></small>
+                </h2>
+            </header>
+            <div class="container">
+                <div class="row masonry-grid-fitrows">
+                    <div class="col-sm-12 col-md-6 col-lg-4 masonry-grid-item">
+                        {% include "partials/form_fields2.html" with form=bankcard_form %}
+
+                        <div class="form-actions">
+                            <button id="submitBtn" type="submit" class="btn btn-large btn-custom">{% trans "Continue" %}</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+    </form>
+
+{#    Using Checkout from Strip#}
+{#    <form action="{% url 'checkout:preview' %}" class="form-stacked" method="POST">#}
+{#        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"#}
+{#                data-key="{{ stripe_publishable_key }}" data-amount="{{ order_total_incl_tax_cents }}"#}
+{#                data-name="{{ shop_name }}"#}
+{#                data-image=""#}
+{#                data-description="{{ basket.num_items }} items ({{ order_total.incl_tax|currency }})">#}
+{#        </script>#}
+{#    </form>#}
+{% endblock %}
+
+{% block onbodyload %}
+
+{% endblock %}
+
+{% block extrascripts %}
+
+{% endblock %}

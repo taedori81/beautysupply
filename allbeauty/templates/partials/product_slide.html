@@ -1,0 +1,42 @@
+{% load currency_filters %}
+{% load category_tags %}
+{% load custom_tags %}
+{% load i18n %}
+{% load static %}
+{% load thumbnail %}
+{% load reviews_tags %}
+
+{% for product in products %}
+<div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup">
+    {% with image=product.primary_image %}
+        {% thumbnail image.original "250x250" upscale=False as thumb %}
+            <figure>
+                <a href="{{ product.get_absolute_url }}" class="zoom-item" title="Portfolio Item Description">
+                    <img src="{{ thumb.url }}" alt="portfolio item name" class="img-responsive" style="">
+                </a>
+            </figure>
+        {% endthumbnail %}
+    {% endwith %}
+    <div class="portfolio-meta light">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="portfolio-title"><a href="{{ product.get_absolute_url }}">{{ product.get_title|truncatechars:25}}</a></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7">
+                <p class="star-rating {{ product.rating|as_stars }}">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </p>
+            </div>
+            <div class="col-sm-5 pull-left">
+                {% include "catalogue/partials/stock_record.html" %}
+            </div>
+        </div>
+    </div><!-- End .portfolio-meta -->
+</div><!-- End .portfolio-item -->
+{% endfor %}

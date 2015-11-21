@@ -1,0 +1,101 @@
+{% extends "checkout/checkout.html" %}
+
+{% load currency_filters %}
+{% load i18n %}
+{% load shipping_tags %}
+
+{% block title %}
+    {% trans "Shipping method" %} | {{ block.super }}
+{% endblock %}
+
+{% block checkout_nav %}
+    {% include 'checkout/nav.html' with step=2 %}
+    <div class="mb40"></div>
+{% endblock %}
+
+{% block checkout_title %}
+    <header class="title-block text-center">
+        <h1 class="title-border custom text-center">
+            <span>
+            {% trans "Shipping Method" %}
+                <small></small>
+            </span>
+            </h1>
+        <h3 class="check-subtitle">{% trans "How should we ship?" %}</h3>
+    </header>
+
+    <div class="mb30"></div>
+    <div class="divider line double">
+        <span>
+            <i class="fa fa-truck"></i>
+        </span>
+    </div>
+
+{% endblock %}
+
+{% block order_contents %}{% endblock %}
+{% block shipping_address %}{% endblock %}
+{% block payment_method %}{% endblock %}
+
+{% block shipping_method %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="mb50"></div>
+
+                <div class="row masonry-grid-fitrows">
+                    {% for method in methods %}
+                        <div class="col-sm-12 col-md-6 col-lg-4 masonry-grid-item">
+                            <div class="pricing-table flat">
+
+                                <header>
+                                    <div class="price">
+                                        {% shipping_charge method basket as charge %}
+                                        {% if charge.is_tax_known %}
+                                            <span>{{ charge.incl_tax|currency:basket.currency }}</span>
+                                        {% else %}
+                                            <span>{{ charge.excl_tax|currency:basket.currency }}</span>
+                                        {% endif %}
+                                    </div>
+                                </header>
+                                <h3>{{ method.name }}</h3>
+                                <p class="pricing-desc">
+                                    {% if method.description %}
+                                        {{ method.description|safe }}
+                                    {% endif %}
+                                    {% if method.is_discounted %}
+                                        <small>
+                                            {% shipping_charge_discount method basket as discount %}
+                                            {% blocktrans with amount=discount|currency:basket.currency name=method.discount_name %}
+                                                This includes a discount of <strong>{{ amount }}</strong> as
+                                                your basket qualifies for the <strong>{{ name }}</strong> offer.
+                                            {% endblocktrans %}
+                                        </small>
+                                    {% endif %}
+                                </p>
+                                <ul class="pricing-list">
+                                    <li><i class="icon-pin"></i>Psd Design</li>
+                                    <li><i class="icon-pin"></i>Html5/Css3 Templates</li>
+                                    <li><i class="icon-pin"></i>Php, Asp.Net, Python</li>
+                                    <li><i class="icon-pin"></i>Wordpress</li>
+                                    <li><i class="icon-pin"></i>Drupal, Joomla etc..</li>
+                                    <li><i class="icon-pin"></i>Seo Powered</li>
+                                </ul>
+
+                                <div class="pricing-action">
+                                    <form method="post" action="{% url 'checkout:shipping-method' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="method_code" value="{{ method.code }}" />
+                                        <button type="submit" class="btn btn-lg btn-custom" data-loading-text="{% trans 'Submitting...' %}">{% trans "Select option" %}</button>
+                                    </form>
+                                </div>
+                            </div><!-- End .pricing-table -->
+                        </div>
+                    {% endfor %}
+                </div><!-- End .row -->
+
+            </div><!-- End .col-sm-12 -->
+        </div><!-- End .row -->
+    </div><!-- End .container -->
+{% endblock shipping_method %}
+

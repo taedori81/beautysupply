@@ -1,0 +1,223 @@
+{% extends "layout_2_col.html" %}
+{% load i18n %}
+{% load static %}
+{% load product_tags %}
+
+{% block navigation %}
+    {% include "partials/nav_primary.html" with expand_dropdown=1 %}
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block column_left %}
+{% endblock %}
+
+{% block content_wrapper %}
+<div id="content" role="main">
+    <div id="revslider-container">
+        <div id="revslider">
+            <ul>
+                <li data-transition="slideleft" data-slotamount="8" data-masterspeed="800" data-title="All you need" data-thumb="{% static "images/revslider/black-hair.jpg" %}">
+                    <!-- background image -->
+                    <img src="{% static "images/revslider/black-hair.jpg" %}"  alt="slidebg1" data-lazyload="{% static "images/revslider/black-hair.jpg" %}" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+
+                    <div class="tp-caption rev-subtitle lfb ltt"
+                        data-x="0"
+                        data-y="160"
+                        data-speed="1000"
+                        data-start="900"
+                        data-easing="Power3.easeInOut"
+                        data-endspeed="400"
+                        style="z-index: 10">{% trans "All you need for your beauty" %}
+                    </div>
+
+                    <div class="tp-caption rev-title lfb ltt"
+                        data-x="0"
+                        data-y="210"
+                        data-speed="1000"
+                        data-start="1000"
+                        data-easing="Power3.easeInOut"
+                        data-endspeed="600"
+                        style="z-index: 6">Well &amp; Clean Coded
+                    </div>
+
+
+                    <div class="tp-caption rev-text lfb ltt"
+                        data-x="0"
+                        data-y="280"
+                        data-speed ="1000"
+                        data-start="1200"
+                        data-easing="Power3.easeInOut"
+                        data-endspeed="700"
+                        style="z-index: 12">Qui laborum saepe vel facilis unde quis odit maiores corrupti, expedita est repellendus auses.
+                    </div>
+
+                    <div class="tp-caption rev-btn lfb ltt"
+                        data-x="0"
+                        data-y="350"
+                        data-speed="1000"
+                        data-start="1400"
+                        data-easing="Power3.easeInOut"
+                        data-endspeed="800"
+                        style="z-index: 14">
+                            <a href="#" class="btn btn-white no-radius min-width">Purchase Now!</a>
+                    </div>
+                </li>
+                <li data-transition="slideleft" data-slotamount="8" data-masterspeed="800" data-title="New and Cool" data-thumb="{% static "images/revslider/black-hair2.jpg" %}">
+                    <!-- background image -->
+                    <img src="{% static "images/revslider/black-hair2.jpg" %}"  alt="slidebg1" data-lazyload="{% static "images/revslider/black-hair2.jpg" %}" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+
+                    <div class="tp-caption rev-subtitle lfb ltt"
+                        data-x="center"
+                        data-y="160"
+                        data-speed="1000"
+                        data-start="900"
+                        data-easing="Power3.easeInOut"
+                        data-endspeed="400"
+                        style="z-index: 10">To make your job easier
+                    </div>
+
+                    <div class="tp-caption rev-title lfb ltt"
+                        data-x="center"
+                        data-y="210"
+                        data-speed="1000"
+                        data-start="1000"
+                        data-easing="Power3.easeInOut"
+                        data-endspeed="600"
+                        style="z-index: 6">New &amp; Unique &amp; Cool
+                    </div>
+
+
+                    <div class="tp-caption rev-text text-center lfb ltt"
+                        data-x="center"
+                        data-y="280"
+                        data-speed ="1000"
+                        data-start="1200"
+                        data-easing="Power3.easeInOut"
+                        data-endspeed="700"
+                        style="z-index: 12">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum totam sunt expedita laborum.
+                    </div>
+
+                    <div class="tp-caption rev-btn lfb ltt"
+                        data-x="center"
+                        data-y="350"
+                        data-speed="1000"
+                        data-start="1400"
+                        data-easing="Power3.easeInOut"
+                        data-endspeed="800"
+                        style="z-index: 14">
+                            <a href="#" class="btn btn-white no-radius min-width">Purchase Now!</a>
+                    </div>
+                </li>
+            </ul>
+        </div><!-- End #revslider -->
+    </div><!-- End #revslider-container -->
+
+</div>
+
+    <div class="mb80"></div><!-- space -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="filter-row clearfix">
+                    <div class="filter-row-left">
+                        <span class="filter-row-label">Sort By:</span>
+                        <div class="small-selectbox clearfix">
+                            <select id="sort" name="sort" class="selectbox">
+                                <option value="Rating">Rating</option>
+                                <option value="Color">Color</option>
+                                <option value="Size">Size</option>
+                                <option value="Price">Price</option>
+                            </select>
+                        </div><!-- End .normal-selectbox-->
+                    </div><!-- End .filter-row-left -->
+                    <div class="filter-row-left">
+                        <span class="filter-row-label">Show:</span>
+                        <div class="small-selectbox clearfix">
+                            <select id="count" name="count" class="selectbox">
+                                <option value="15">15</option>
+                                <option value="30">30</option>
+                                <option value="45">45</option>
+                                <option value="60">60</option>
+                            </select>
+                        </div><!-- End .normal-selectbox-->
+                    </div><!-- End .filter-row-left -->
+                    <div class="filter-row-right">
+                        <a href="category.html" class="btn btn-layout btn-border add-tooltip active" data-placement="top" title="Category Grid"><i class="fa fa-th"></i></a>
+                        <a href="category-list.html" class="btn btn-layout btn-border add-tooltip" data-placement="top" title="Category List"><i class="fa fa-th-list"></i></a>
+
+                        <a href="compare.html" class="btn btn-compare btn-dark">Compare</a>
+                    </div><!-- End .filter-row-right -->
+                </div><!-- End .filter-row -->
+
+                <div class="mb60"></div><!-- space -->
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2 class="title-underblock mb30 custom text-center">{% trans "New Arrival Products" %}</h2>
+
+                            <div class="mb40"></div><!-- space -->
+
+                            <div class="portfolio-rated-carousel owl-carousel nav-border center-nav white-nav popup-gallery">
+
+                                {% include 'partials/product_slide.html' %}
+
+                            </div><!-- end .portfolio-related-carousel -->
+                        </div>
+                    </div>
+
+                    <div class="mb60"></div><!-- space -->
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2 class="title-underblock mb30 custom text-center">{% trans "Most Popular Products" %}</h2>
+
+                            <div class="mb40"></div><!-- space -->
+
+                            <div class="portfolio-rated-carousel owl-carousel nav-border center-nav white-nav popup-gallery">
+
+                                {% include 'partials/product_slide.html' %}
+
+                            </div><!-- end .portfolio-related-carousel -->
+                        </div>
+                    </div>
+
+                    <div class="mb60"></div><!-- space -->
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h2 class="title-underblock mb30 custom text-center">{% trans "Top Rated Products" %}</h2>
+                                <div class="mb40"></div><!-- space -->
+
+                                <div class="portfolio-rated-carousel owl-carousel nav-border center-nav white-nav popup-gallery">
+
+                                    {% include 'partials/product_slide.html' %}
+
+                                </div><!-- end .portfolio-related-carousel -->
+                            </div>
+                        </div>
+
+                </div><!-- End .container -->
+            </div>
+
+            <div class="col-sm-3">
+                <h1>hello world</h1>
+                <h1>hello world</h1>
+                <h1>hello world</h1>
+                <h1>hello world</h1>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+{% endblock content_wrapper %}
+
+{% block content %}
+{% endblock content %}
