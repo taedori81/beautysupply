@@ -11,7 +11,7 @@
         <hr>
         {% for line in request.basket.all_lines %}
             <div class="product clearfix">
-                <a href="#" class="remove-btn" title="Remove"><i class="fa fa-close"></i></a>
+                <a href="#" class="remove-btn" title="Remove" data-behaviours="remove" data-id="0"><i class="fa fa-close"></i></a>
                 <figure>
                     {% with image=line.product.primary_image %}
                         {% thumbnail image.original "70x70" upscale=False as thumb %}

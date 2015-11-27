@@ -10,8 +10,6 @@
     {% if summary %}{{ summary }} |{% endif %} {{ block.super }}
 {% endblock %}
 
-{% block headertext %}{{ summary }}{% endblock %}
-
 
 {% block page_header %}
     {{ block.super }}
@@ -156,6 +154,11 @@
             <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/sOKC_e1Ygvc" allowfullscreen></iframe>
         </div><!-- End .embed-responsive -->
     </div><!-- End .widget -->
+{% endblock %}
+
+{% block page_header_title %}
+    <h1>  {% if summary %}{{ summary }} {% endif %} <small class="hidden-xs"></small></h1>
+    <p class="page-header-desc"></p>
 {% endblock %}
 
 {% block column_right %}

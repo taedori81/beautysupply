@@ -17,7 +17,7 @@ module.exports = function(grunt) {
         options: {
           open: false,
           port: "3004",
-          proxy: "0.0.0.0:8001",
+          proxy: "127.0.0.1:8000",
           reloadOnRestart: true,
           watchTask: true
         }

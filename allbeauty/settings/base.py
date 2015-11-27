@@ -61,13 +61,15 @@ INSTALLED_APPS = [
     'taggit',
     'overextends',
     'crispy_forms',
+    'paypal',
 
 
     # For Oscar
     'widget_tweaks',
     # 'avalara',
     'django_forms_bootstrap',
-    'stripe',
+    # 'stripe',
+    'payments',
 
 
     'django.contrib.admin',
@@ -93,6 +95,7 @@ INSTALLED_APPS = [
         'shop.customer',
         'shop.promotions',
         'shop.catalogue',
+        'shop.dashboard',
     ]
 )
 
@@ -242,11 +245,40 @@ AVALARA_ACCOUNT_NUMBER = ''
 AVALARA_LICENSE_KEY = '23AWdBihK45/SydcwLOWX9C79x52U1xSXwBTjRDwPSdpn+T53GyQ0YyXt/RAgRXKUpqPluapkCyNVi0CiCAYKg=='
 AVALARA_COMPANY_CODE = ''
 
+# Crisp Form Template
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 
 # STRIPE
-STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
-STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY')
+# STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+# STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY')
 STRIPE_CURRENCY = "USD"
 
+# django-stripe-payments(Pinax-payment)
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
+# PayPal
+PAYPAL_API_USERNAME = 'taedori-facilitator_api1.outlook.com'
+PAYPAL_API_PASSWORD = 'XXTKL86TAR594CQ5'
+PAYPAL_API_SIGNATURE = 'AFcWxV21C7fd0v3bYYYRCpSSRl31AvhDL5MCT2FxtvbrQyruwKdDk-Lk'
+PAYPAL_SANDBOX_MODE = True
+PAYPAL_CURRENCY = 'USD'
+
+
+# Adding  Paypal express to Dashboard.
+
+from django.utils.translation import ugettext_lazy as _
+OSCAR_DASHBOARD_NAVIGATION.append(
+    {
+        'label': _('PayPal'),
+        'icon': 'icon-globe',
+        'children': [
+            {
+                'label': _('Express transactions'),
+                'url_name': 'paypal-express-list',
+            },
+        ]
+    })
+
+

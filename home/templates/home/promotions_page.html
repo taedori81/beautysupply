@@ -1,0 +1,17 @@
+{% extends "layout_2_col.html" %}
+{% load promotion_tags %}
+
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block page_header_title %}
+<h1>Promotions</h1>
+{% endblock %}
+
+
+{% block content_inner %}
+<div id="promotions">
+    {% for promotion in promotions_page %}
+        {% render_promotion promotion %}
+    {% endfor %}
+</div>
+{% endblock %}

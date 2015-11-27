@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% load product_tags %}
+{% load promotion_tags %}
 
 {% block navigation %}
     {% include "partials/nav_primary.html" with expand_dropdown=1 %}
@@ -60,7 +61,7 @@
                         data-easing="Power3.easeInOut"
                         data-endspeed="800"
                         style="z-index: 14">
-                            <a href="#" class="btn btn-white no-radius min-width">Purchase Now!</a>
+                            <a href="{% url 'catalogue:index' %}" class="btn btn-white no-radius min-width">{% trans "Purchase Now!" %}</a>
                     </div>
                 </li>
                 <li data-transition="slideleft" data-slotamount="8" data-masterspeed="800" data-title="New and Cool" data-thumb="{% static "images/revslider/black-hair2.jpg" %}">
@@ -106,7 +107,7 @@
                         data-easing="Power3.easeInOut"
                         data-endspeed="800"
                         style="z-index: 14">
-                            <a href="#" class="btn btn-white no-radius min-width">Purchase Now!</a>
+                            <a href="{% url 'catalogue:index' %}" class="btn btn-white no-radius min-width">{% trans "Purchase Now!" %}</a>
                     </div>
                 </li>
             </ul>
@@ -202,10 +203,12 @@
             </div>
 
             <div class="col-sm-3">
-                <h1>hello world</h1>
-                <h1>hello world</h1>
-                <h1>hello world</h1>
-                <h1>hello world</h1>
+                {# Render promotions #}
+                    <div id="promotions">
+                        {% for promotion in promotions_page %}
+                            {% render_promotion promotion %}
+                        {% endfor %}
+                    </div>
             </div>
         </div>
     </div>
