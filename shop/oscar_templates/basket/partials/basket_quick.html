@@ -5,24 +5,37 @@
 {% load i18n %}
 {% load staticfiles %}
 
-<div class="dropdown-menu cart-dropdown-menu" role="menu">
+<div class="dropdown-menu cart-dropdown-menu" role="menu" id="mini-basket">
     {% if request.basket.num_lines %}
         <p class="cart-dropdown-desc"><i class="fa fa-cart-plus"></i>You have {{ request.basket.num_items }} product(s) in your cart:</p>
         <hr>
         {% for line in request.basket.all_lines %}
             <div class="product clearfix">
-                <a href="#" class="remove-btn" title="Remove" data-behaviours="remove" data-id="0"><i class="fa fa-close"></i></a>
-                <figure>
-                    {% with image=line.product.primary_image %}
-                        {% thumbnail image.original "70x70" upscale=False as thumb %}
-                       <a href="{{ line.product.get_absolute_url }}" title="{{ line.product.get_title }}">
-                           <img class="img-responsive" src="{{ thumb.url }}" alt="{{ line.product.get_title }}">
-                       </a>
-                        {% endthumbnail %}
-                    {% endwith %}
-                </figure>
+                {% if line.product.is_parent or line.product.is_standalone %}
+                    <figure>
+                        {% with image=line.product.primary_image %}
+                            {% thumbnail image.original "70x70" upscale=False as thumb %}
+                           <a href="{{ line.product.get_absolute_url }}" title="{{ line.product.get_title }}">
+                               <img class="img-responsive" src="{{ thumb.url }}" alt="{{ line.product.get_title }}">
+                           </a>
+                            {% endthumbnail %}
+                        {% endwith %}
+                    </figure>
+                {% else %}
+                    <figure>
+                        {% with image=line.product.parent.primary_image %}
+                            {% thumbnail image.original "70x70" upscale=False as thumb %}
+                           <a href="{{ line.product.get_absolute_url }}" title="{{ line.product.get_title }}">
+                               <img class="img-responsive" src="{{ thumb.url }}" alt="{{ line.product.get_title }}">
+                           </a>
+                            {% endthumbnail %}
+                        {% endwith %}
+                    </figure>
+                {% endif %}
                 <div class="product-meta">
-                    <h4 class="product-name"><a href="{{ line.product.get_absolute_url }}">{{ line.product.get_title }}</a></h4>
+                    <h4 class="product-name">
+                        <a href="{{ line.product.get_absolute_url }}">{{ line.product.get_title }}{% if line.product.attribute_summary %} - <span class="label label-primary">{{ line.product.attribute_summary }}{% endif %}</span></a>
+                    </h4>
                     <div class="product-quantity">x {{ line.quantity }} piece(s)</div><!-- End .product-quantity -->
                     <div class="product-price-container">
                         <span class="product-price">{{ line.unit_price_excl_tax|currency:request.basket.currency }}</span>

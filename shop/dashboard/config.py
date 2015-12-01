@@ -1,5 +1,5 @@
 from oscar.apps.dashboard import config
 
 
-class DashboardDashboardConfig(config.DashboardConfig):
+class DashboardConfig(config.DashboardConfig):
     name = 'shop.dashboard'

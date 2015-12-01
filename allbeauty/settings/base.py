@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'overextends',
     'crispy_forms',
     'paypal',
+    'template_timings_panel',
 
 
     # For Oscar
@@ -95,6 +96,7 @@ INSTALLED_APPS = [
         'shop.customer',
         'shop.promotions',
         'shop.catalogue',
+        'shop.basket',
         'shop.dashboard',
     ]
 )
@@ -149,6 +151,24 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+# http://django-debug-toolbar.readthedocs.org/en/latest/configuration.html#debug-toolbar-panels
+DEBUG_TOOLBAR_PANELS = [
+    'debug_toolbar.panels.versions.VersionsPanel',
+    'debug_toolbar.panels.timer.TimerPanel',
+    'debug_toolbar.panels.settings.SettingsPanel',
+    'debug_toolbar.panels.headers.HeadersPanel',
+    'debug_toolbar.panels.request.RequestPanel',
+    'debug_toolbar.panels.sql.SQLPanel',
+    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+    'debug_toolbar.panels.templates.TemplatesPanel',
+    'template_timings_panel.panels.TemplateTimings.TemplateTimings',
+    'debug_toolbar.panels.cache.CachePanel',
+    'debug_toolbar.panels.signals.SignalsPanel',
+    'debug_toolbar.panels.logging.LoggingPanel',
+    'debug_toolbar.panels.redirects.RedirectsPanel',
+
 ]
 
 WSGI_APPLICATION = 'allbeauty.wsgi.application'
@@ -237,7 +257,7 @@ OSCAR_DEFAULT_CURRENCY = 'USD'
 OSCAR_FROM_EMAIL = 'oscar@example.com'
 
 OSCAR_SHOP_NAME = 'All Beauty'  #allbeauty
-OSCAR_PRODUCTS_PER_PAGE = 8
+OSCAR_PRODUCTS_PER_PAGE = 100
 
 # Avalara - Sales Tax
 

@@ -178,6 +178,8 @@ var oscar = (function(o, $) {
                 o.basket.checkAndSubmit($(this), 'form', 'DELETE');
                 event.preventDefault();
             });
+
+
             $('#content_inner').on('click', '#basket_formset a[data-behaviours~="save"]', function(event) {
                 o.basket.checkAndSubmit($(this), 'form', 'save_for_later');
                 event.preventDefault();

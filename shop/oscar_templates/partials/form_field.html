@@ -11,7 +11,7 @@
     {% annotate_form_field field %}
 
     {% block control_group %}
-        <div class="form-group {% if field.errors %}has-error{% endif %}">
+        <div class="form-group {% if field.widget_type == 'AdvancedSelect' %} small-selectbox clearfix{% endif %}{% if field.errors %}has-error{% endif %}">
 
             {% block label %}
                 {% if not nolabel and field.widget_type != 'CheckboxInput' %}
@@ -29,6 +29,8 @@
                                 {{ field.label|safe }}
                                 {% render_field field class+="form-control" %}
                             </label>
+                        {% elif field.widget_type == 'AdvancedSelect' %}
+                            {% render_field field class+="form-control selectbox" %}
                         {% else %}
                             {% render_field field class+="form-control" %}
                         {% endif %}

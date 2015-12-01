@@ -8,15 +8,28 @@
 
 {% for product in products %}
 <div class="portfolio-item portfolio-image-zoom portfolio-meta-slideup">
-    {% with image=product.primary_image %}
-        {% thumbnail image.original "250x250" upscale=False as thumb %}
-            <figure>
-                <a href="{{ product.get_absolute_url }}" class="zoom-item" title="Portfolio Item Description">
-                    <img src="{{ thumb.url }}" alt="portfolio item name" class="img-responsive" style="">
-                </a>
-            </figure>
-        {% endthumbnail %}
-    {% endwith %}
+    {% if product.is_parent or product.is_standalone %}
+        {% with image=product.primary_image %}
+            {% thumbnail image.original "250x250" upscale=False as thumb %}
+                <figure>
+                    <a href="{{ product.get_absolute_url }}" class="zoom-item" title="Portfolio Item Description">
+                        <img src="{{ thumb.url }}" alt="portfolio item name" class="img-responsive" style="">
+                    </a>
+                </figure>
+            {% endthumbnail %}
+        {% endwith %}
+
+    {% else %}
+        {% with image=product.parent.primary_image %}
+            {% thumbnail image.original "250x250" upscale=False as second_thumb %}
+                <figure>
+                    <a href="{{ product.get_absolute_url }}" class="zoom-item" title="Portfolio Item Description">
+                        <img src="{{ second_thumb.url }}" alt="portfolio item name" class="img-responsive" style="">
+                    </a>
+                </figure>
+            {% endthumbnail %}
+        {% endwith %}
+    {% endif %}
     <div class="portfolio-meta light">
         <div class="row">
             <div class="col-sm-12">

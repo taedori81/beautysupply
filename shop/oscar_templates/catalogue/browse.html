@@ -18,41 +18,35 @@
 {% block column_left %}
 
     {# TODO Add Filter #}
-    <div class="widget">
-
-    </div>
 
     <div class="widget">
         <div class="filter-group-widget">
             <div class="panel-group" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-border-tb">
-                    <div class="panel-heading" role="tab" id="priceFilter-header">
+                    <div class="panel-heading" role="tab" id="sizeFilter-header">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#priceFilter" aria-expanded="true" aria-controls="priceFilter">
-                                Price Filter
+                            <a data-toggle="collapse" href="#sizeFilter" aria-expanded="true" aria-controls="sizeFilter">
+                                {% trans "Length Filter (inch)" %}
                                 <span class="panel-icon"></span>
                             </a>
                         </h4>
                     </div><!-- End .panel-heading -->
-                    <div id="priceFilter" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="priceFilter-header">
+                    <div id="sizeFilter" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sizeFilter-header">
                         <div class="panel-body">
-                            <div class="filter-price">
-                                <div id="price-range"></div><!-- End #price-range -->
-                                <div id="filter-range-details" class="row">
-                                    <div class="col-xs-6">
-                                        <div class="filter-price-label">from - $</div>
-                                        <input type="text" id="price-range-low" class="form-control">
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="filter-price-label">to- $</div>
-                                        <input type="text" id="price-range-high" class="form-control">
-                                    </div>
-                                </div><!-- End #filter-range-details -->
-                                <div class="filter-price-action">
-                                    <a href="#" class="btn btn-custom btn-sm">Filter</a>
-                                    <a href="#" class="btn btn-custom3 btn-sm">Reset</a>
-                                </div><!-- End #filter-price-action -->
-                            </div><!-- End .filter-price -->
+                            <div class="filter-color-container ">
+                                <div class="row filters-button-group length-group">
+                                    <a href="#" class="filter-size-box" data-filter="*">All</a>
+                                    <a href="#" class="filter-size-box" data-filter=".10S">10S</a>
+                                    <a href="#" class="filter-size-box" data-filter=".10">10</a>
+                                    <a href="#" class="filter-size-box" data-filter=".12">12</a>
+                                    <a href="#" class="filter-size-box" data-filter=".14">14</a>
+                                    <a href="#" class="filter-size-box" data-filter=".16">16</a>
+                                    <a href="#" class="filter-size-box" data-filter=".18">18</a>
+                                    <a href="#" class="filter-size-box" data-filter=".20">20</a>
+                                    <a href="#" class="filter-size-box" data-filter=".22">22</a>
+                                    <a href="#" class="filter-size-box" data-filter=".24">24</a>
+                                </div><!-- End .row -->
+                            </div><!-- End .filter-color-container -->
                         </div><!-- End .panel-body -->
                     </div><!-- End .panel-collapse -->
                 </div><!-- End .panel -->
@@ -69,54 +63,24 @@
                         <div class="panel-body">
                             <div class="filter-color-container">
                                 <div class="row">
-                                    <a href="#" data-bgcolor="#eaeaea" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#009688" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#2196f3" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#ffc107" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#d4e157" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#c5c8f4" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#9e9e9e" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#607d8b" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#795548" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#8fdfa6" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#d8ea9f" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#79a762" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#fed5d4" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#fe8482" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#00acc1" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#b39ddb" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#0277bd" class="filter-color-box"></a>
-                                    <a href="#" data-bgcolor="#000000" class="filter-color-box"></a>
-                                </div><!-- End .row -->
-                            </div><!-- End .filter-color-container -->
-                        </div><!-- End .panel-body -->
-                    </div><!-- End .panel-collapse -->
-                </div><!-- End .panel -->
-                <div class="panel panel-border-tb">
-                    <div class="panel-heading" role="tab" id="sizeFilter-header">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#sizeFilter" aria-expanded="true" aria-controls="sizeFilter">
-                                Size Filter
-                                <span class="panel-icon"></span>
-                            </a>
-                        </h4>
-                    </div><!-- End .panel-heading -->
-                    <div id="sizeFilter" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sizeFilter-header">
-                        <div class="panel-body">
-                            <div class="filter-color-container">
-                                <div class="row">
-                                    <a href="#" class="filter-size-box active">6</a>
-                                    <a href="#" class="filter-size-box">4</a>
-                                    <a href="#" class="filter-size-box">6</a>
-                                    <a href="#" class="filter-size-box">8</a>
-                                    <a href="#" class="filter-size-box">10</a>
-                                    <a href="#" class="filter-size-box">12</a>
-                                    <a href="#" class="filter-size-box">xs</a>
-                                    <a href="#" class="filter-size-box">s</a>
-                                    <a href="#" class="filter-size-box">m</a>
-                                    <a href="#" class="filter-size-box">ml</a>
-                                    <a href="#" class="filter-size-box">l</a>
-                                    <a href="#" class="filter-size-box">xl</a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
+                                    <a href="#" class="filter-color-box"></a>
                                 </div><!-- End .row -->
                             </div><!-- End .filter-color-container -->
                         </div><!-- End .panel-body -->
