@@ -42,38 +42,19 @@
 
 {% block column_right %}
         <div class="filter-row clearfix">
-            <div class="filter-row-left">
-                <span class="filter-row-label">Sort By:</span>
-                <div class="small-selectbox clearfix">
-                    <select id="sort" name="sort" class="selectbox">
-                        <option value="Rating">Rating</option>
-                        <option value="Color">Color</option>
-                        <option value="Size">Size</option>
-                        <option value="Price">Price</option>
-                    </select>
-                </div><!-- End .normal-selectbox-->
-            </div><!-- End .filter-row-left -->
-            <div class="filter-row-left">
-                <span class="filter-row-label">Show:</span>
-                <div class="small-selectbox clearfix">
-                    <select id="count" name="count" class="selectbox">
-                        <option value="15">15</option>
-                        <option value="30">30</option>
-                        <option value="45">45</option>
-                        <option value="60">60</option>
-                    </select>
-                </div><!-- End .normal-selectbox-->
-            </div><!-- End .filter-row-left -->
             <div class="filter-row-right">
-                <a href="category.html" class="btn btn-layout btn-border add-tooltip active" data-placement="top" title="Category Grid"><i class="fa fa-th"></i></a>
-                <a href="category-list.html" class="btn btn-layout btn-border add-tooltip" data-placement="top" title="Category List"><i class="fa fa-th-list"></i></a>
-
-                <a href="compare.html" class="btn btn-compare btn-dark">Compare</a>
-
-            </div><!-- End .filter-row-right -->
+                <span class="filter-row-label">{% trans "Sort By:" %}</span>
+                <div class="btn-group clearfix sort-by-button-group">
+                    <button class="btn btn-sm btn-custom btn-border" data-sort-value="original-order">{% trans "Default" %}</button>
+                    <button class="btn btn-sm btn-custom btn-border" data-sort-value="name">{% trans "Name" %}</button>
+                    <button class="btn btn-sm btn-custom btn-border" data-sort-value="priceUp">{% trans "Price" %}&nbsp;&nbsp;<i class="fa fa-long-arrow-up"></i></button>
+                    <button class="btn btn-sm btn-custom btn-border" data-sort-value="priceDown">{% trans "Price" %}&nbsp;&nbsp;<i class="fa fa-long-arrow-down"></i></button>
+                    <button class="btn btn-sm btn-custom btn-border" data-sort-value="review">{% trans "Review" %}</button>
+                </div><!-- End .normal-selectbox-->
+            </div><!-- End .filter-row-left -->
         </div><!-- End .filter-row -->
 
-        <div class="row masonry-grid-fitrows filter-grid">
+        <div class="row masonry-grid-fitrows filter-grid sort-grid">
             {% for product in products %}
                 {% render_product product %}
             {% endfor %}

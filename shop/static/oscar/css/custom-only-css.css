@@ -192,3 +192,47 @@ input[type="text"][id*="quantity"], input[type="number"][id*="quantity"] {
     content: "*";
     display: inline-block;
 }
+
+.filter-color-box img {
+    width: 35px;
+    height: 35px;
+}
+
+.filter-price-box {
+    border: 1px solid #eaeaea;
+    display: inline-block;
+    height: 30px;
+    margin: 0 5px 10px;
+    transition: all 0.2s ease 0s;
+    width: 40px;
+    color: #505050;
+    font-size: 12px;
+    line-height: 28px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.filter-price-box .active {
+    background-color: #996794;
+    border-color: #996794;
+    color: #fff;
+}
+
+.page-header {
+    margin-bottom:30px;
+}
+
+.color-chart-container img {
+    width:60px;
+    height:100px;
+    padding: 5px;
+}
+
+.color-chart-row-left {
+    float: left;
+}
+
+.color-chart-text {
+    font-size: 9px;
+    color: #222;
+    line-height: 110%;
+}

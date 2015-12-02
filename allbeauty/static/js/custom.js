@@ -2,52 +2,51 @@
  * Created by taedori on 11/16/15.
  */
 (function($){
-    $(document).ready(function(){
-        // Isotope filters
-		//-----------------------------------------------
-		//if ($('.isotope-container').length>0 || $('.masonry-grid').length>0 || $('.masonry-grid-fitrows').length>0 || $('.isotope-container-fitrows').length>0) {
-		//	$(window).load(function() {
-		//		$('.masonry-grid').isotope({
-		//			itemSelector: '.masonry-grid-item',
-		//			layoutMode: 'masonry'
-		//		});
-		//		$('.masonry-grid-fitrows').isotope({
-		//			itemSelector: '.masonry-grid-item',
-		//			layoutMode: 'fitRows'
-		//		});
-		//		$('.isotope-container').fadeIn();
-		//		var $container = $('.isotope-container').isotope({
-		//			itemSelector: '.isotope-item',
-		//			layoutMode: 'masonry',
-		//			transitionDuration: '0.6s',
-		//			filter: "*"
-		//		});
-		//		$('.isotope-container-fitrows').fadeIn();
-		//		var $container_fitrows = $('.isotope-container-fitrows').isotope({
-		//			itemSelector: '.isotope-item',
-		//			layoutMode: 'fitRows',
-		//			transitionDuration: '0.6s',
-		//			filter: "*"
-		//		});
-		//		// filter items on button click
-		//		$('.filters').on( 'click', 'ul.nav li a', function() {
-		//			var filterValue = $(this).attr('data-filter');
-		//			$(".filters").find("li.active").removeClass("active");
-		//			$(this).parent().addClass("active");
-		//			$container.isotope({ filter: filterValue });
-		//			$container_fitrows.isotope({ filter: filterValue });
-		//			return false;
-		//		});
-		//	});
-		//	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-		//		$('.tab-pane .masonry-grid-fitrows').isotope({
-		//			itemSelector: '.masonry-grid-item',
-		//			layoutMode: 'fitRows'
-		//		});
-		//	});
-		//}
 
+
+
+
+	// Init Isotope
+	var $sorting_grid = $('.sort-grid').isotope({
+		itemSelector:'.product-item',
+		layoutMode: 'fitRows',
+		getSortData: {
+			name: '.product-link',
+			priceUp: function( itemElem ) {
+				var price = $(itemElem).find('.price_color').text();
+				price = price.replace(/\$/g, "");
+				return parseFloat(price);
+			},
+			priceDown: function( itemElem ) {
+				var price = $(itemElem).find('.price_color').text();
+				price = price.replace(/\$/g, "");
+				return parseFloat(price);
+			},
+			review: function ( itemElem ){
+				var rating = $( itemElem ).find('.rating').text();
+				if (rating == "None"){
+					rating = 0.0;
+					return rating;
+				}
+				else {
+					return rating;
+				}
+			}
+		},
+		sortAscending: {
+			name: true,
+			priceUp: false,
+			priceDown: true,
+			review: false
+		}
 	});
+
+	//Bind sort button click
+	$('.sort-by-button-group').on('click', 'button', function() {
+		var sortValue = $(this).attr('data-sort-value');
+		$sorting_grid.isotope({ sortBy: sortValue });
+	});
+
 
 	// Product Filters
 	var $filter_grid = $('.filter-grid').isotope({
@@ -57,10 +56,56 @@
 
 	// Custom Filter Functions
 	var filterFns = {
+		priceLessThan10: function(){
+			var number = $(this).find('.price_color').text();
+			number = number.replace(/\$/g,"");
+			return parseInt(number, 10) <= 10;
+
+		},
+		priceLessThan25: function(){
+			var number = $(this).find('.price_color').text();
+			number = number.replace(/\$/g,"");
+			return parseInt(number, 10) <= 25;
+		},
+		priceLessThan50: function(){
+			var number = $(this).find('.price_color').text();
+			number = number.replace(/\$/g,"");
+			return parseInt(number, 10) <= 50;
+		},
+		priceLessThan75: function(){
+			var number = $(this).find('.price_color').text()
+			number = number.replace(/\$/g,"");
+			return parseInt(number, 10) <= 75;
+		},
+		priceLessThan100: function(){
+			var number = $(this).find('.price_color').text();
+			number = number.replace(/\$/g,"");
+			return parseInt(number, 10) <= 100;
+		},
+		priceLessThan125: function(){
+			var number = $(this).find('.price_color').text();
+			number = number.replace(/\$/g,"");
+			return parseInt(number, 10) <= 125;
+		},
+		priceLessThan150: function(){
+			var number = $(this).find('.price_color').text();
+			number = number.replace(/\$/g,"");
+			return parseInt(number, 10) <= 150;
+		},
+		priceLessThan175: function(){
+			var number = $(this).find('.price_color').text();
+			number = number.replace(/\$/g,"");
+			return parseInt(number, 10) <= 175;
+		},
+		priceLessThan200: function(){
+			var number = $(this).find('.price_color').text();
+			number = number.replace(/\$/g,"");
+			return parseInt(number, 10) <= 200;
+		},
 
 	};
 	// Bind filter button click
-	$('.filters-button-group').on('click', 'a', function(){
+	$('.filters-length-button-group').on('click', 'a', function(){
 		var filterValue = $(this).attr('data-filter');
 		// use filterFn if matches value
 		filterValue = filterFns[ filterValue ] || filterValue;
@@ -76,4 +121,44 @@
 			$(this).addClass('active');
 		});
 	});
+
+	// Bind filter button click
+	$('.filters-color-button-group').on('click', 'a', function(){
+		var filterValue = $(this).attr('data-filter');
+		// use filterFn if matches value
+		filterValue = filterFns[ filterValue ] || filterValue;
+		$filter_grid.isotope({filter:filterValue});
+	});
+
+	// change active class on buttons
+	$('.color-group').each(function(i, buttonGroup){
+		// buttonGroup == this..
+		var $buttonGroup = $( buttonGroup );
+		$buttonGroup.on('click', 'a', function(){
+			$buttonGroup.find('.active').removeClass('active');
+			$(this).addClass('active');
+		});
+	});
+
+	// Bind filter button click
+	$('.filters-price-button-group').on('click', 'a', function(){
+		var filterValue = $(this).attr('data-filter');
+		// use filterFn if matches value
+		filterValue = filterFns[ filterValue ] || filterValue;
+		//var result = filterValue();
+		//alert(result);
+		$filter_grid.isotope({filter:filterValue});
+	});
+
+	// change active class on buttons
+	$('.price-group').each(function(i, buttonGroup){
+		// buttonGroup == this..
+		var $buttonGroup = $( buttonGroup );
+		$buttonGroup.on('click', 'a', function(){
+			$buttonGroup.find('.active').removeClass('active');
+			$(this).addClass('active');
+		});
+	});
+
+
 })(jQuery);

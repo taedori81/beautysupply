@@ -102,27 +102,89 @@
                         {% include "catalogue/reviews/partials/review_stars.html" %}
                     {% endiffeature %}
                 </div><!-- End .product-ratings-container -->
-                <p>Add Short description of Product</p>
 
-                <div class="filter-size-container">
-                    <label class="input-desc">Size:</label>
-                    <div class="row">
-                        <a href="#" class="filter-size-box">xs</a>
-                        <a href="#" class="filter-size-box">s</a>
-                        <a href="#" class="filter-size-box">m</a>
-                        <a href="#" class="filter-size-box">ml</a>
-                        <a href="#" class="filter-size-box">l</a>
-                    </div><!-- End .row -->
-                </div><!-- End .filter-size-container -->
+                <div class="color-chart-container">
+                    <label class="input-desc">{% trans "Color Chart" %}</label>
+                    <div class="row masonry-grid-fitrows">
 
-                <div class="filter-color-container">
-                    <label class="input-desc">Color:</label>
-                    <div class="row">
-                        <a href="#" data-bgcolor="#eaeaea" class="filter-color-box"></a>
-                        <a href="#" data-bgcolor="#009688" class="filter-color-box"></a>
-                        <a href="#" data-bgcolor="#2196f3" class="filter-color-box"></a>
-                        <a href="#" data-bgcolor="#ffc107" class="filter-color-box"></a>
-                        <a href="#" data-bgcolor="#d4e157" class="filter-color-box"></a>
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/1.jpg' %}" alt="Black">
+                            <p class="color-chart-text text-center">{% trans "Black" %}</p>
+                        </div>
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/1B.jpg' %}" alt="Off Black">
+                            <p class="color-chart-text text-center">{% trans "Off Black" %}</p>
+                        </div>
+
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/2.jpg' %}" alt="Dark Brown">
+                            <p class="color-chart-text text-center">{% trans "Dark Brown" %}</p>
+                        </div>
+
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/4.jpg' %}" alt="Medium Dark Brown">
+                            <p class="color-chart-text text-center">{% trans "Medium Dark Brown" %}</p>
+                        </div>
+
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/6.jpg' %}" alt="Chestnut Brown">
+                            <p class="color-chart-text text-center">{% trans "Chestnut Brown" %}</p>
+                        </div>
+
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/8.jpg' %}" alt="Medium Ash Brown">
+                            <p class="color-chart-text text-center">{% trans "Medium Ash Brown" %}</p>
+                        </div>
+
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/27.jpg' %}" alt="Strawberry Blonde">
+                            <p class="color-chart-text text-center">{% trans "Strawberry Blonde" %}</p>
+                        </div>
+
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/30.jpg' %}" alt="Light Auburn">
+                            <p class="color-chart-text text-center">{% trans "Light Auburn" %}</p>
+                        </div>
+
+                        <!-- Extra -->
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/1.jpg' %}" alt="Black">
+                            <p class="color-chart-text text-center">{% trans "Black" %}</p>
+                        </div>
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/1B.jpg' %}" alt="Off Black">
+                            <p class="color-chart-text text-center">{% trans "Off Black" %}</p>
+                        </div>
+
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/2.jpg' %}" alt="Dark Brown">
+                            <p class="color-chart-text text-center">{% trans "Dark Brown" %}</p>
+                        </div>
+
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/4.jpg' %}" alt="Medium Dark Brown">
+                            <p class="color-chart-text text-center">{% trans "Medium Dark Brown" %}</p>
+                        </div>
+
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/6.jpg' %}" alt="Chestnut Brown">
+                            <p class="color-chart-text text-center">{% trans "Chestnut Brown" %}</p>
+                        </div>
+
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/8.jpg' %}" alt="Medium Ash Brown">
+                            <p class="color-chart-text text-center">{% trans "Medium Ash Brown" %}</p>
+                        </div>
+
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/27.jpg' %}" alt="Strawberry Blonde">
+                            <p class="color-chart-text text-center">{% trans "Strawberry Blonde" %}</p>
+                        </div>
+
+                        <div class="col-sm-1 masonry-grid-item">
+                            <img src="{% static 'images/colorchart/30.jpg' %}" alt="Light Auburn">
+                            <p class="color-chart-text text-center">{% trans "Light Auburn" %}</p>
+                        </div>
                     </div><!-- End .row -->
                 </div><!-- End .filter-color-container -->
 

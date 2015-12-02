@@ -5,6 +5,7 @@
 {% load category_tags %}
 {% load product_tags %}
 {% load i18n %}
+{% load static %}
 
 {% block title %}
     {% if summary %}{{ summary }} |{% endif %} {{ block.super }}
@@ -16,9 +17,6 @@
 {% endblock %}
 
 {% block column_left %}
-
-    {# TODO Add Filter #}
-
     <div class="widget">
         <div class="filter-group-widget">
             <div class="panel-group" role="tablist" aria-multiselectable="true">
@@ -34,7 +32,7 @@
                     <div id="sizeFilter" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sizeFilter-header">
                         <div class="panel-body">
                             <div class="filter-color-container ">
-                                <div class="row filters-button-group length-group">
+                                <div class="row filters-length-button-group length-group">
                                     <a href="#" class="filter-size-box" data-filter="*">All</a>
                                     <a href="#" class="filter-size-box" data-filter=".10S">10S</a>
                                     <a href="#" class="filter-size-box" data-filter=".10">10</a>
@@ -44,7 +42,6 @@
                                     <a href="#" class="filter-size-box" data-filter=".18">18</a>
                                     <a href="#" class="filter-size-box" data-filter=".20">20</a>
                                     <a href="#" class="filter-size-box" data-filter=".22">22</a>
-                                    <a href="#" class="filter-size-box" data-filter=".24">24</a>
                                 </div><!-- End .row -->
                             </div><!-- End .filter-color-container -->
                         </div><!-- End .panel-body -->
@@ -54,7 +51,7 @@
                     <div class="panel-heading" role="tab" id="colorFilter-header">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" href="#colorFilter" aria-expanded="true" aria-controls="colorFilter">
-                            Color Filter
+                            {% trans "Color Filter" %}
                             <span class="panel-icon"></span>
                             </a>
                         </h4>
@@ -62,25 +59,61 @@
                     <div id="colorFilter" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="colorFilter-header">
                         <div class="panel-body">
                             <div class="filter-color-container">
-                                <div class="row">
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
-                                    <a href="#" class="filter-color-box"></a>
+                                <div class="row filters-color-button-group color-group">
+                                    <a href="#" class="filter-size-box" data-filter="*">All</a>
+                                    <a href="#" class="filter-color-box" data-filter=".1">
+                                        <img src="{% static 'images/colorchart/1.jpg' %}" alt="black" title="1" >
+                                    </a>
+                                    <a href="#" class="filter-color-box" data-filter=".1B">
+                                        <img src="{% static 'images/colorchart/1B.jpg' %}" alt="off black" title="1B">
+                                    </a>
+                                    <a href="#" class="filter-color-box" data-filter=".2">
+                                        <img src="{% static 'images/colorchart/2.jpg' %}" alt="dark brown" title="2">
+                                    </a>
+                                    <a href="#" class="filter-color-box" data-filter=".4">
+                                        <img src="{% static 'images/colorchart/4.jpg' %}" alt="medium dark brown" title="4">
+                                    </a>
+                                    <a href="#" class="filter-color-box" data-filter=".6">
+                                        <img src="{% static 'images/colorchart/6.jpg' %}" alt="chestnut brown" title="6">
+                                    </a>
+                                    <a href="#" class="filter-color-box" data-filter=".8">
+                                        <img src="{% static 'images/colorchart/8.jpg' %}" alt="medium ash brown" title="8">
+                                    </a>
+                                    <a href="#" class="filter-color-box" data-filter=".27">
+                                        <img src="{% static 'images/colorchart/27.jpg' %}" alt="strawberry blonde" title="27">
+                                    </a>
+                                    <a href="#" class="filter-color-box" data-filter=".30">
+                                        <img src="{% static 'images/colorchart/30.jpg' %}" alt="light auburn" title="30">
+                                    </a>
+
+                                </div><!-- End .row -->
+                            </div><!-- End .filter-color-container -->
+                        </div><!-- End .panel-body -->
+                    </div><!-- End .panel-collapse -->
+                </div><!-- End .panel -->
+                <div class="panel panel-border-tb">
+                    <div class="panel-heading" role="tab" id="priceFilter-header">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#priceFilter" aria-expanded="true" aria-controls="priceFilter">
+                                {% trans "Price Filter (Under)" %}
+                                <span class="panel-icon"></span>
+                            </a>
+                        </h4>
+                    </div><!-- End .panel-heading -->
+                    <div id="priceFilter" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="priceFilter-header">
+                        <div class="panel-body">
+                            <div class="filter-color-container ">
+                                <div class="row filters-price-button-group price-group">
+                                    <a href="#" class="filter-size-box" data-filter="*">All</a>
+                                    <a href="#" class="filter-size-box" data-filter="priceLessThan10">$10</a>
+                                    <a href="#" class="filter-size-box" data-filter="priceLessThan25">$25</a>
+                                    <a href="#" class="filter-size-box" data-filter="priceLessThan50">$50</a>
+                                    <a href="#" class="filter-size-box" data-filter="priceLessThan75">$75</a>
+                                    <a href="#" class="filter-size-box" data-filter="priceLessThan100">$100</a>
+                                    <a href="#" class="filter-size-box" data-filter="priceLessThan125">$125</a>
+                                    <a href="#" class="filter-size-box" data-filter="priceLessThan150">$150</a>
+                                    <a href="#" class="filter-size-box" data-filter="priceLessThan175">$175</a>
+                                    <a href="#" class="filter-size-box" data-filter="priceLessThan200">$200</a>
                                 </div><!-- End .row -->
                             </div><!-- End .filter-color-container -->
                         </div><!-- End .panel-body -->
@@ -110,13 +143,6 @@
                 </div><!-- End .panel -->
             </div><!-- End .panel-group -->
         </div><!-- End .filter-widget -->
-    </div><!-- End .widget -->
-
-    <div class="widget">
-        <h3>Short Video</h3>
-        <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/sOKC_e1Ygvc" allowfullscreen></iframe>
-        </div><!-- End .embed-responsive -->
     </div><!-- End .widget -->
 {% endblock %}
 
