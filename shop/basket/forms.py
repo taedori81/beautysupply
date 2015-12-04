@@ -10,7 +10,6 @@ Basket = get_model('basket', 'basket')
 Product = get_model('catalogue', 'product')
 
 
-
 class AddToBasketFormCustom(forms.Form):
     quantity = forms.IntegerField(initial=1, min_value=1, label=_('Quantity'))
 
@@ -43,7 +42,7 @@ class AddToBasketFormCustom(forms.Form):
         for child in product.children.all():
             # Build a description of the child, including any pertinent
             # attributes
-            attr_summary = child.attribute_summary
+            attr_summary = child.attribute_summary_sorted()
             if attr_summary:
                 summary = attr_summary
             else:

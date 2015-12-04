@@ -3,39 +3,28 @@
 {% load purchase_info_tags %}
 
 {% purchase_info_for_product request product as session %}
+<div class="row">
+    <div class="col-sm-6">
+        {% if session.price.exists %}
+            {% if session.price.excl_tax == 0 %}
+                <p class="product-price" id="product-price">{% trans "Free" %}</p>
+            {% elif session.price.is_tax_known %}
+                <p class="product-price" id="product-price">{{ session.price.incl_tax|currency:session.price.currency }}</p>
+            {% else %}
+                <p class="product-price" id="product-price">{{ session.price.excl_tax|currency:session.price.currency }}</p>
+            {% endif %}
+        {% else %}
+            <p class="price_color" id="product-price">&nbsp;</p>
+        {% endif %}
+    </div>
+    <div class="col-sm-6">
+        <p class="{{ session.availability.code }} availability">
+        <i class="icon-{% if session.availability.is_available_to_buy %}ok{% else %}remove{% endif %}"></i>
+        {% if verbose %}
+            <p class="label label-popular">{{ session.availability.message }}</p>
+        {% else %}
+            <p class="label label-popular">{{ session.availability.short_message }}</p>
+        {% endif %}
+    </div>
+</div>
 
-{% if session.price.exists %}
-    {% if session.price.excl_tax == 0 %}
-        <p class="product-price">{% trans "Free" %}</p>
-    {% elif session.price.is_tax_known %}
-        <p class="product-price">{{ session.price.incl_tax|currency:session.price.currency }}</p>
-    {% else %}
-        <p class="product-price">{{ session.price.excl_tax|currency:session.price.currency }}</p>
-    {% endif %}
-{% else %}
-    <p class="price_color">&nbsp;</p>
-{% endif %}
-<p class="{{ session.availability.code }} availability">
-    <i class="icon-{% if session.availability.is_available_to_buy %}ok{% else %}remove{% endif %}"></i>
-    {% if verbose %}
-        <p class="label label-popular">{{ session.availability.message }}</p>
-    {% else %}
-        <p class="label label-popular">{{ session.availability.short_message }}</p>
-    {% endif %}
-
-
-{# TODO Delete Later #}
-{#{% if product.children.exists %}#}
-{#    <h5>Variants</h5>#}
-{#    {% for child in product.children.all %}#}
-{#        {% purchase_info_for_product request child as child_session %}#}
-{#        {% if child_session.price.excl_tax == 0 %}#}
-{#            <p class="product-price">{% trans "Free" %}</p>#}
-{#        {% elif child_session.price.is_tax_known %}#}
-{#            <p class="product-price">{{ child_session.price.incl_tax|currency:child_session.price.currency }}</p>#}
-{#        {% else %}#}
-{#            <p class="product-price">{{ child_session.price.excl_tax|currency:child_session.price.currency }}</p>#}
-{#        {% endif %}#}
-{#    {% endfor %}#}
-{##}
-{#{% endif %}#}

@@ -41,3 +41,8 @@ def basket_form_custom(request, product, quantity_type='single'):
 
     return form
 
+
+@register.assignment_tag(name="product_reivews")
+def reviews_for_product(request, product):
+    return product.reviews.all()
+

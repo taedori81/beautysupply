@@ -1,6 +1,7 @@
 
 
-from oscar.apps.catalogue.abstract_models import AbstractProduct
+from oscar.apps.catalogue.abstract_models import AbstractProduct, AbstractProductAttributeValue
+from operator import itemgetter
 
 
 class Product(AbstractProduct):
@@ -22,5 +23,23 @@ class Product(AbstractProduct):
                 'original': self.get_missing_image(),
                 'caption': '',
                 'is_missing': True}
+
+    def attribute_summary_sorted(self):
+        """
+        Return a string of all of a product's attributes but Length First order
+
+        """
+        attributes = self.attribute_values.all()
+        pairs = [attribute.summary_sorted() for attribute in attributes]
+        sorted_pairs = tuple(sorted(pairs, key=itemgetter(1)))
+        return ', '.join(sorted_pairs)
+
+
+class ProductAttributeValue(AbstractProductAttributeValue):
+
+    def summary_sorted(self):
+        if self.attribute.name == "Length":
+            return u"%s" % self.value_as_text
+        return u"%s: %s" % (self.attribute.name, self.value_as_text)
 
 from oscar.apps.catalogue.models import *

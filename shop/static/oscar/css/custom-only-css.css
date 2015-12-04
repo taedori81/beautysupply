@@ -223,7 +223,7 @@ input[type="text"][id*="quantity"], input[type="number"][id*="quantity"] {
 
 .color-chart-container img {
     width:60px;
-    height:100px;
+    height:60px;
     padding: 5px;
 }
 
@@ -235,4 +235,9 @@ input[type="text"][id*="quantity"], input[type="number"][id*="quantity"] {
     font-size: 9px;
     color: #222;
     line-height: 110%;
+    padding-left: 12px;
+    position: relative;
+}
+.cart-dropdown-menu {
+    width: 400px;
 }

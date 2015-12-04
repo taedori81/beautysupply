@@ -3,9 +3,6 @@
  */
 (function($){
 
-
-
-
 	// Init Isotope
 	var $sorting_grid = $('.sort-grid').isotope({
 		itemSelector:'.product-item',
@@ -158,6 +155,17 @@
 			$buttonGroup.find('.active').removeClass('active');
 			$(this).addClass('active');
 		});
+	});
+
+
+	$('#id_child_id').change(function(){
+		var price = $('#id_child_id').find("option:selected").text();
+		var startNumber = price.search(/\bP/i);
+		var priceText = price.substring(startNumber);
+		var pricePosition = priceText.search(/\d/);
+		priceText = priceText.substring(pricePosition);
+		$("#product-price").text("$" + priceText);
+
 	});
 
 

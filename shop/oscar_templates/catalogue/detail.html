@@ -11,6 +11,7 @@
 {% load category_tags %}
 {% load thumbnail %}
 {% load static %}
+{% load custom_tags %}
 
 {% block title %}
     {{ product.title }} | {{ block.super }}
@@ -106,96 +107,86 @@
                 <div class="color-chart-container">
                     <label class="input-desc">{% trans "Color Chart" %}</label>
                     <div class="row masonry-grid-fitrows">
-
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/1.jpg' %}" alt="Black">
-                            <p class="color-chart-text text-center">{% trans "Black" %}</p>
+                            <p class="color-chart-text text-center">{% trans "1" %}</p>
                         </div>
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/1B.jpg' %}" alt="Off Black">
-                            <p class="color-chart-text text-center">{% trans "Off Black" %}</p>
+                            <p class="color-chart-text text-center">{% trans "1B" %}</p>
                         </div>
 
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/2.jpg' %}" alt="Dark Brown">
-                            <p class="color-chart-text text-center">{% trans "Dark Brown" %}</p>
+                            <p class="color-chart-text text-center">{% trans "2" %}</p>
                         </div>
 
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/4.jpg' %}" alt="Medium Dark Brown">
-                            <p class="color-chart-text text-center">{% trans "Medium Dark Brown" %}</p>
+                            <p class="color-chart-text text-center">{% trans "4" %} </p>
                         </div>
 
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/6.jpg' %}" alt="Chestnut Brown">
-                            <p class="color-chart-text text-center">{% trans "Chestnut Brown" %}</p>
+                            <p class="color-chart-text text-center">{% trans "6" %}</p>
                         </div>
 
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/8.jpg' %}" alt="Medium Ash Brown">
-                            <p class="color-chart-text text-center">{% trans "Medium Ash Brown" %}</p>
+                            <p class="color-chart-text text-center">{% trans "8" %}</p>
                         </div>
 
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/27.jpg' %}" alt="Strawberry Blonde">
-                            <p class="color-chart-text text-center">{% trans "Strawberry Blonde" %}</p>
+                            <p class="color-chart-text text-center">{% trans "27" %}</p>
                         </div>
 
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/30.jpg' %}" alt="Light Auburn">
-                            <p class="color-chart-text text-center">{% trans "Light Auburn" %}</p>
+                            <p class="color-chart-text text-center">{% trans "30" %}</p>
                         </div>
 
                         <!-- Extra -->
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/1.jpg' %}" alt="Black">
-                            <p class="color-chart-text text-center">{% trans "Black" %}</p>
+                            <p class="color-chart-text text-center">{% trans "1-Black" %}</p>
                         </div>
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/1B.jpg' %}" alt="Off Black">
-                            <p class="color-chart-text text-center">{% trans "Off Black" %}</p>
+                            <p class="color-chart-text text-center">{% trans "1B-Off Black" %}</p>
                         </div>
 
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/2.jpg' %}" alt="Dark Brown">
-                            <p class="color-chart-text text-center">{% trans "Dark Brown" %}</p>
+                            <p class="color-chart-text text-center">{% trans "2-Dark Brown" %}</p>
                         </div>
 
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/4.jpg' %}" alt="Medium Dark Brown">
-                            <p class="color-chart-text text-center">{% trans "Medium Dark Brown" %}</p>
+                            <p class="color-chart-text text-center">{% trans "4-Medium Dark Brown" %}</p>
                         </div>
 
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/6.jpg' %}" alt="Chestnut Brown">
-                            <p class="color-chart-text text-center">{% trans "Chestnut Brown" %}</p>
+                            <p class="color-chart-text text-center">{% trans "6-Chestnut Brown" %}</p>
                         </div>
 
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/8.jpg' %}" alt="Medium Ash Brown">
-                            <p class="color-chart-text text-center">{% trans "Medium Ash Brown" %}</p>
+                            <p class="color-chart-text text-center">{% trans "8-Medium Ash Brown" %}</p>
                         </div>
 
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/27.jpg' %}" alt="Strawberry Blonde">
-                            <p class="color-chart-text text-center">{% trans "Strawberry Blonde" %}</p>
+                            <p class="color-chart-text text-center">{% trans "27-Strawberry Blonde" %}</p>
                         </div>
 
                         <div class="col-sm-1 masonry-grid-item">
                             <img src="{% static 'images/colorchart/30.jpg' %}" alt="Light Auburn">
-                            <p class="color-chart-text text-center">{% trans "Light Auburn" %}</p>
+                            <p class="color-chart-text text-center">{% trans "30-Light Auburn" %}</p>
                         </div>
                     </div><!-- End .row -->
                 </div><!-- End .filter-color-container -->
-
-                <div class="product-quantity-wrapper">
-                    <div class="product-quantity">
-                        <label class="input-desc">Quantity:</label>
-                        <input type="text" value="10" class="horizontal-spinner">
-                    </div><!-- End .product-quantity -->
-
-
-                </div><!-- End .product-quantity-wrapper -->
 
                 <div class="product-action">
                     {% block product_basket_form %}
@@ -234,18 +225,22 @@
         <div id="product_description" class="sub-header">
             <h2 class="title-border custom mb40">{% trans "Product Description" %}</h2>
         </div>
+
+        <div class="divider line"></div>
         <p>{{ product.description|safe }}</p>
         {% endif %}
     {% endblock %}
 
+    <div class="mb30"></div>
     {% block product_info %}
     <div class="row">
         <div class="col-sm-12">
             <h2 class="title-border custom mb40">{% trans "Product Information" %}</h2>
-            <div class="table-responsive">
 
-            </div>
-            <table class="table table-bordered table-hover table-condensed">
+            <div class="divider line"></div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-condensed">
                 {% if product.upc %}
                 <tr>
                     <th>{% trans "UPC" %}</th><td>{{ product.upc }}</td>
@@ -286,17 +281,18 @@
                     </tr>
                 {% endiffeature %}
             </table>
+            </div>
         </div>
-
-
     </div>
     {% endblock %}
+
+    <div class="mb30"></div>
 
     {% iffeature "reviews" %}
         {% block product_review %}
         <section>
             <div id="reviews" class="sub-header">
-                {% if product.num_approved_reviews > 3 %}
+                {% if product.num_approved_reviews > 5 %}
                     <a href="{% url 'catalogue:reviews-list' product_slug=product.slug product_pk=product.id %}" class="btn pull-right">{% trans "See all reviews" %}</a>
                 {% endif %}
                 <h2 class="title-border custom mb40">{% trans "Customer Reviews" %}</h2>
@@ -314,8 +310,9 @@
                     {% endif %}
                 </p>
             {% else %}
+                {% product_reivews request product=product as reviews %}
                 <ol class="list-unstyled review-list">
-                    {% for review in reviews|slice:":3" %}
+                    {% for review in reviews|slice:":5" %}
                         <li>
                         {% include 'catalogue/partials/review.html' %}
                         </li>

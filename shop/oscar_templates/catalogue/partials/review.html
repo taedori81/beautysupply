@@ -33,17 +33,22 @@
     </p>
 
     {% if review|may_vote:user %}
-        <small>{% trans "Is this review helpful?" %}</small>
-        <form action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}" method="post" class="vote_agree" >
+        <div>
+            <small>{% trans "Is this review helpful?" %}</small>
+        </div>
+
+
+        <form action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}" method="post" class="vote_agree" style="float:left;">
             {% csrf_token %}
             <input type="hidden" name="delta" value="1"/>
             <button type="submit" class="btn btn-success btn-xs" data-loading-text="{% trans 'Submitting...' %}">{% trans "Yes" %}</button>
         </form>
-        <form  action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}" method="post">
+        <form  action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}" method="post" class="clearfix">
             {% csrf_token %}
             <input type="hidden" name="delta" value="-1"/>
             <button type="submit" class="btn btn-danger btn-xs" data-loading-text="{% trans 'Submitting...' %}">{% trans "No" %}</button>
         </form>
+
     {% endif %}
              
     <p>   
