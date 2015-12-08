@@ -10,6 +10,7 @@ from wagtail.wagtailcore import urls as wagtail_urls
 from oscar.app import application as oscar_shop
 from paypal.express.dashboard.app import application as paypal_dashboard_app
 
+
 urlpatterns = [
     url(r'^django-admin/', include(admin.site.urls)),
 

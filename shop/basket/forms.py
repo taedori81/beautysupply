@@ -1,3 +1,5 @@
+from operator import itemgetter
+
 from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
@@ -24,7 +26,7 @@ class AddToBasketFormCustom(forms.Form):
         super(AddToBasketFormCustom, self).__init__(*args, **kwargs)
 
         # Dynamically build fields
-        if product.is_parent:
+        if product.is_parent or product.is_standalone:
             self._create_parent_product_fields(product)
         self._create_product_fields(product)
 
@@ -53,15 +55,13 @@ class AddToBasketFormCustom(forms.Form):
             if not info.availability.is_available_to_buy:
                 disabled_values.append(child.id)
 
+            # Sort by Length!!!
             choices.append((child.id, summary))
+            sorted_choices = sorted(choices, key=itemgetter(1))
 
         self.fields['child_id'] = forms.ChoiceField(
-            choices=tuple(choices), label=_("Options"),
+            choices=tuple(sorted_choices), label=_("Options"),
             widget=widgets.AdvancedSelect(disabled_values=disabled_values))
-
-        # self.fields['child_id'] = forms.ChoiceField(
-        #     choices=tuple(choices), label=_("Options"),
-        #     widget=forms.RadioSelect)
 
     def _create_product_fields(self, product):
         """

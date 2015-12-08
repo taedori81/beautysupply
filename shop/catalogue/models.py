@@ -31,6 +31,7 @@ class Product(AbstractProduct):
         """
         attributes = self.attribute_values.all()
         pairs = [attribute.summary_sorted() for attribute in attributes]
+        # Show length in first position in array
         sorted_pairs = tuple(sorted(pairs, key=itemgetter(1)))
         return ', '.join(sorted_pairs)
 

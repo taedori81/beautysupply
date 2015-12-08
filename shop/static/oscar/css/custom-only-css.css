@@ -241,3 +241,7 @@ input[type="text"][id*="quantity"], input[type="number"][id*="quantity"] {
 .cart-dropdown-menu {
     width: 400px;
 }
+
+.product-image, .product-image-hover {
+    height: 250px;
+}

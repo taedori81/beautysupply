@@ -37,6 +37,7 @@ if exists(env_file):
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
+SECRET_KEY = "2q$vGY2w53\#1nn'x~%4kb&mPb2?hDbMySd`i$P*\"d^(K@_Q=E:e{Wy%:l{:J4R>^(C5R<yJpA3TE;1aHAl=1cCY9k!X4(3kx0%"
 
 # Application definition
 
@@ -82,8 +83,6 @@ INSTALLED_APPS = [
 
     'django.contrib.sites',
     'django.contrib.flatpages',
-
-
 
 
 ] + get_core_apps(

@@ -2,8 +2,10 @@ from django import template
 
 from oscar.core.loading import get_model, get_class
 
+
 register = template.Library()
 Category = get_model('catalogue', 'category')
+ProductAttributeValue = get_model('catalogue', 'ProductAttributeValue')
 
 
 @register.assignment_tag(name="category_list")
@@ -45,4 +47,5 @@ def basket_form_custom(request, product, quantity_type='single'):
 @register.assignment_tag(name="product_reivews")
 def reviews_for_product(request, product):
     return product.reviews.all()
+
 

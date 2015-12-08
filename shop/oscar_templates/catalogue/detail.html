@@ -57,9 +57,9 @@
 
             <div class="product-gallery-container">
                 {% with primary_image=product.primary_image %}
-                    {% thumbnail primary_image.original "360x446" upscale=False as primary_thumb %}
+                    {% thumbnail primary_image.original "x700" upscale=False as primary_thumb %}
                         <div class="product-top">
-                            <img id="product-zoom" src="{{ primary_thumb.url }}" data-zoom-image="{{ primary_image.original.url }}" alt="Product image big"/>
+                            <img id="product-zoom" src="{{ primary_thumb.url }}" alt="Product image big"/>
                         </div><!-- End .product-top -->
                     {% endthumbnail %}
                 {% endwith %}
@@ -67,7 +67,7 @@
                     <div class="product-gallery-wrapper">
                         <div class="owl-carousel product-gallery product-gallery-lg">
                             {% for image in all_images %}
-                                {% thumbnail image.original "360x446" upscale=False as thumb  %}
+                                {% thumbnail image.original "x700" upscale=False as thumb  %}
                                     <a href="#" data-image="{{ thumb.url }}" data-zoom-image="{{ image.original.url }}" class="product-gallery-item">
                                         <img src="{{ thumb.url }}" alt="product-small-1">
                                     </a>
@@ -84,6 +84,7 @@
         {% purchase_info_for_product request product as session %}
 
         <div class="col-md-7">
+
             <div class="product-details">
                 <h2 class="product-title">{{ product.get_title }}</h2>
                 <div class="product-cats">
@@ -193,7 +194,6 @@
                         {% include "partials/add_to_basket_form_side_by_side.html" %}
                     {% endblock %}
                 </div><!-- End .product-action -->
-
                 <div class="share-container">
                     <label class="input-desc">Share now:</label>
                     <div class="social-icons social-icons-bg social-icons-bg-hover social-icons-circle">
