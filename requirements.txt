@@ -22,7 +22,7 @@ django-haystack==2.4.1
 django-jsonfield==0.9.15
 django-localflavor==1.0
 django-modelcluster==1.0
-django-oscar==1.2.dev0
+
 django-oscar-avalara==0.2.1
 django-oscar-datacash==0.8.3
 django-overextends==0.4.0
