@@ -87,7 +87,7 @@
 
                                                             <h2 class="product-title">
                                                                 <a href="{{ product.get_absolute_url }}" title="{{ product.get_title }}">
-                                                                    {{ product.get_title }}{% if product.attribute_summary %} - <span class="label label-primary">{{ product.attribute_summary }}{% endif %}</span>
+                                                                    {{ product.get_title }}{% if product.attribute_summary_sorted %} - <span class="label label-primary">{{ product.attribute_summary_sorted }}{% endif %}</span>
                                                                 </a>
                                                             </h2>
                                                             {% block product_review %}

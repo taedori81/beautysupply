@@ -29,12 +29,12 @@
                             <a href="{{ product.get_absolute_url }}" title="{{ product.get_title }}">
                                 {% with image=product.primary_image %}
                                     {% thumbnail image.original "x250" upscale=False as thumb %}
-                                        <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="product-image">
+                                        <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="product-image product-image-list">
                                     {% endthumbnail %}
                                 {% endwith %}
                                 {% with image=product.secondary_image %}
                                     {% thumbnail image.original "x250" upscale=False as thumb %}
-                                        <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="product-image-hover">
+                                        <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="product-image-hover product-image-hover-list">
                                     {% endthumbnail %}
                                 {% endwith %}
                             </a>

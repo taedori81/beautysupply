@@ -34,7 +34,7 @@
                 {% endif %}
                 <div class="product-meta">
                     <h4 class="product-name">
-                        <a href="{{ line.product.get_absolute_url }}">{{ line.product.get_title }}{% if line.product.attribute_summary %} - <span class="label label-primary">{{ line.product.attribute_summary }}{% endif %}</span></a>
+                        <a href="{{ line.product.get_absolute_url }}">{{ line.product.get_title }}{% if line.product.attribute_summary_sorted %} - <span class="label label-primary">{{ line.product.attribute_summary_sorted }}{% endif %}</span></a>
                     </h4>
                     <div class="product-quantity">x {{ line.quantity }} piece(s)</div><!-- End .product-quantity -->
                     <div class="product-price-container">

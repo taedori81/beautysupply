@@ -15,6 +15,7 @@ import os
 import environ
 from os.path import dirname, join, exists
 from django.contrib.messages import constants as messages
+import dj_database_url
 
 # OSCAR
 from oscar import OSCAR_MAIN_TEMPLATE_DIR
@@ -172,22 +173,7 @@ DEBUG_TOOLBAR_PANELS = [
 
 WSGI_APPLICATION = 'allbeauty.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': env('DB_ENGINE'),
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASS'),
-        'HOST': env('DB_HOST'),
-        'PORT': env('DB_PORT'),
-        'ATOMIC_REQUESTS': env('ATOMIC_REQUESTS'),  # OSCAR
-    }
-}
-
+DATABASES = {}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -217,8 +203,10 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'shop', 'static')
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -285,9 +273,12 @@ PAYPAL_SANDBOX_MODE = True
 PAYPAL_CURRENCY = 'USD'
 
 
+
 # Adding  Paypal express to Dashboard.
 
+
 from django.utils.translation import ugettext_lazy as _
+
 OSCAR_DASHBOARD_NAVIGATION.append(
     {
         'label': _('PayPal'),

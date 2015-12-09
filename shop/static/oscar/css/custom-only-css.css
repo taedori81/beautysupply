@@ -239,9 +239,9 @@ input[type="text"][id*="quantity"], input[type="number"][id*="quantity"] {
     position: relative;
 }
 .cart-dropdown-menu {
-    width: 400px;
+    width: 450px;
 }
 
-.product-image, .product-image-hover {
+.product-image-list, .product-image-hover-list {
     height: 250px;
 }
