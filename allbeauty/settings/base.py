@@ -30,7 +30,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Load env file
 env = environ.Env()
 
-env_file = join(dirname(__file__), 'local.env')
+env_file = join(BASE_DIR, '.env')
 if exists(env_file):
     environ.Env.read_env(str(env_file))
 
