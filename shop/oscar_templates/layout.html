@@ -5,7 +5,7 @@
 
 {% block mainstyles %}
     {% block styles %}
-        {% compress css %}
+{#        {% compress css %}#}
 {#             Conflict with template default css#}
 {#            {% if use_less %}#}
 {#                <link rel="stylesheet" type="text/less" href="{% static "oscar/less/styles.less" %}" />#}
@@ -38,7 +38,7 @@
 
             <!-- Queryloader -->
             <script src="{% static "js/queryloader2.min.js" %}"></script>
-        {% endcompress %}
+{#        {% endcompress %}#}
     {% endblock %}
 {% endblock %}
 
@@ -82,7 +82,7 @@
 {# Local scripts #}
 {% block scripts %}
     {{ block.super }}
-    {% compress js %}
+{#    {% compress js %}#}
     <!-- Twitter Bootstrap -->
     <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
     <!-- Oscar -->
@@ -102,7 +102,6 @@
     <script src="{% static "js/retina.min.js" %}"></script>
     <script src="{% static "js/owl.carousel.min.js" %}"></script>
     <script src="{% static "js/jflickrfeed.min.js" %}"></script>
-{#    <script src="{% static "js/twitter/jquery.tweet.min.js" %}"></script>#}
     <script src="{% static "js/skrollr.min.js" %}"></script>
     <script src="{% static "js/jquery.countTo.js" %}"></script>
     <script src="{% static "js/isotope.pkgd.min.js" %}"></script>
@@ -136,7 +135,7 @@
 
         }());
     </script>
-    {% endcompress %}
+{#    {% endcompress %}#}
 {% endblock %}
 
 {% block extrascripts %}
